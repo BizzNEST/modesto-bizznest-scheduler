@@ -1,6 +1,11 @@
-# Project Title
+# The Bizz Hive
 
-A brief description of what this project does and who it's for.
+A versatile scheduling application designed to efficiently manage tasks and appointments. 
+This unique tool randomizes meeting participants while allowing users to filter which individuals are paired together,
+ensuring a diverse mix of collaborators. With customizable reminders and a user-friendly interface,
+this scheduler is perfect for individuals and teams looking to optimize their time management and enhance team dynamics.
+
+
 
 ## Table of Contents
 
