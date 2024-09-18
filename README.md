@@ -9,7 +9,7 @@ this scheduler is perfect for individuals and teams looking to optimize their ti
 
 ## Table of Contents
 
-- [Project Title](#project-title)
+- [The Bizz Hive](#The-Bizz-Hive)
 - [Table of Contents](#table-of-contents)
 - [Installation](#installation)
 - [Usage](#usage)
