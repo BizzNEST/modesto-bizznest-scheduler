@@ -39,4 +39,24 @@ Step-by-step instructions on how to get the development environment running.
 Instructions and examples for using the project. Include code snippets and screenshots as needed.
 
 ## Development Pocess
-To address the challenges of organizing randomized meetings, we developed a scheduling solution aimed at automating this process. Our goals include creating a user-friendly interface that is fully responsive for both mobile and desktop users. The front-end code prioritizes performance and ease of integration with backend systems, ensuring a seamless experience for developers. Additionally, we are committed to enhancing usability by providing clear, well-structured documentation that abstracts our features and methods, making it easy for all users to navigate and implement our software effectively.
+Phase 1: 
+- Planning and Design (2-3 days)
+Finalize project requirements and features.
+Develop wireframes and design prototypes for the user interface.
+Interns should familiarize themselves with GitHub practices and read the documentation on commit messages, branching, and coding standards.
+
+Phase 2:
+- Development (7-10 days)
+Develop the HTML, CSS, and JavaScript components.
+Implement the logic for schedule generation, rule configuration, selection management, and edge case handling.
+Interns should actively create GitHub issues and update them according to progress.
+
+Phase 3: 
+- Testing (2-3 days)
+Perform user acceptance testing to ensure the application meets requirements.
+
+Phase 4:
+- Deployment (1-2 days)
+Deploy the application to a web server or hosting platform.
+Provide instructions for use and optional documentation.
+
