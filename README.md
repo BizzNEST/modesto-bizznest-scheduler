@@ -38,3 +38,11 @@ Step-by-step instructions on how to get the development environment running.
 
 Instructions and examples for using the project. Include code snippets and screenshots as needed.
 
+## Deployment Instructions
+
+Clone the repository
+git clone https://github.com/username/repository-name.git
+
+Navigate to the project folder
+cd repository-name 
+
