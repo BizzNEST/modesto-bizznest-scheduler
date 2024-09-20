@@ -109,6 +109,28 @@ Non-Functional Requirements:
         Include tooltips or help text where necessary to explain different features and controls.
 
 
+## Project Development Process
+### Phase 1: Planning and Design 
+#### Time Frame (2-3 days)
+* Finalize project requirements and features.
+* Develop wireframes and design prototypes for the user interface.
+* Interns should familiarize themselves with GitHub practices and read the documentation on commit messages, branching, and coding standards.
+
+### Phase 2: Development 
+#### Time Frame (7-10 days)
+* Develop the HTML, CSS, and JavaScript components.
+* Implement the logic for schedule generation, rule configuration, selection management, and edge case handling.
+* Interns should actively create GitHub issues and update them according to progress.
+
+### Phase 3: Testing
+#### Time Frame (2-3 days)
+* Perform user acceptance testing to ensure the application meets requirements.
+
+### Phase 4: Deployment 
+#### Time Frame (1-2 days)
+Deploy the application to a web server or hosting platform.
+Provide instructions for use and optional documentation.
+
 
 
 
