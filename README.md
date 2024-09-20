@@ -1,6 +1,6 @@
-# Project Title
+# NESTwork
 
-A brief description of what this project does and who it's for.
+This project aims to create a randomized scheduling app using HTML, CSS, and JavaScript. It will pair or group interns from various locations and departments based on customizable rules, allowing users to easily include or exclude interns with simple controls.
 
 ## Table of Contents
 
