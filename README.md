@@ -4,41 +4,15 @@ This project aims to create a randomized scheduling app using HTML, CSS, and Jav
 
 ## Table of Contents
 
-- [Project Title](#project-title)
+- [NESTwork](#nestwork)
 - [Table of Contents](#table-of-contents)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Features](#features)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
-
-## Installation
-
-Step-by-step instructions on how to get the development environment running.
-
-1. Clone the repository:
-    ```sh
-    git clone https://github.com/your-username/your-repo.git
-    ```
-2. Navigate to the project directory:
-    ```sh
-    cd your-repo
-    ```
-3. Install dependencies:
-    ```sh
-    npm install
-    ```
-4. Run the development server:
-    ```sh
-    npm start
-    ```
-
-## Usage
-
-Instructions and examples for using the project. Include code snippets and screenshots as needed.
-
-## Requirements
+- [Project Requirements](#project-requirements)
+- [Project Setup](#project-setup)
+- [How to Run the Project](#how-to-run-the-project)
+- [Development Process](#development-process)
+- [Deployment Instructions](#deployment-instructions)
+ 
+## Project Requirements
 
 Intern Data Management:
     Store all intern data in a static JSON object that is embedded or loaded into the application.
@@ -108,8 +82,39 @@ Non-Functional Requirements:
         Provide a user-friendly and intuitive experience for users, requiring minimal training or documentation.
         Include tooltips or help text where necessary to explain different features and controls.
 
+## Project Setup
+
+Step-by-step instructions on how to get the development environment running.
+
+1. Clone the repository:
+    ```sh
+    git clone git@github.com:BizzNEST/modesto-bizznest-scheduler.git
+    ```
+
+2. Navigate to the project directory:
+    ```sh
+    cd modesto-bizznest-scheduler
+    ```
+
+3. Create the necessary files:
+   - Create `index.html`, `style.css`, and `script.js` files in the project directory.
+   - Ensure that `index.html` properly links to both `style.css` for styling and `script.js` for functionality.
+
+4. Install dependencies:
+    ```sh
+    npm install
+    ```
+
+5. Run the development server:
+    ```sh
+    npm start
+    ```
+
+## How to Run the Project
+
 
 ## Project Development Process
+
 ### Phase 1: Planning and Design 
 #### Time Frame (2-3 days)
 * Finalize project requirements and features.
@@ -130,6 +135,9 @@ Non-Functional Requirements:
 #### Time Frame (1-2 days)
 Deploy the application to a web server or hosting platform.
 Provide instructions for use and optional documentation.
+
+
+## Deployment Instructions
 
 
 
