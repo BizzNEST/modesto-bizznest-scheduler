@@ -1,0 +1,7 @@
+export async function generate_array(url) {
+        const requestURL = url;
+        const request = new Request(requestURL);
+        const response = await fetch(request);
+        const json_array = await response.json();;
+        return json_array;
+        }
