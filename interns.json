@@ -1,0 +1,205 @@
+ [
+    {
+      "locations": [
+        {
+          "locationName": "Modesto",
+          "departments": [
+            {
+              "departmentName": "Web Development",
+              "interns": [
+                { "name": "Victor Lomeli" },
+                { "name": "Jose Delo" },
+                { "name": "Leo Masellis" },
+                { "name": "Alan Buenrostro" },
+                { "name": "Karl Legson" },
+                { "name": "Adrean Cajigas" },
+                { "name": "Benjamin Schooland" }
+              ]
+            },
+            {
+              "departmentName": "Marketing",
+              "interns": [
+                { "name": "Maribel Garcia" }
+              ]
+            },
+            {
+              "departmentName": "IT",
+              "interns": []
+            },
+            {
+              "departmentName": "Design",
+              "interns": [
+                { "name": "Fatima Perez" },
+                { "name": "Seneca Rubianes" },
+                { "name": "Carmen Trujillo" },
+                { "name": "Andrew Eversley" },
+                { "name": "Nazgol Ghafourian" }
+              ]
+            },
+            {
+              "departmentName": "Video",
+              "interns": []
+            }
+          ]
+        },
+        {
+          "locationName": "Salinas",
+          "departments": [
+            {
+              "departmentName": "Web Development",
+              "interns": [
+                { "name": "Eli Manzo" },
+                { "name": "Liliana Constantino" },
+                { "name": "Jacqueline Perez" },
+                { "name": "Alonzo Cabrera" }
+              ]
+            },
+            {
+              "departmentName": "Marketing",
+              "interns": []
+            },
+            {
+              "departmentName": "IT",
+              "interns": [
+                { "name": "Elissa Covarrubias" }
+              ]
+            },
+            {
+              "departmentName": "Design",
+              "interns": [
+                { "name": "Xavier Cruz" },
+                { "name": "Alexa Zavala" },
+                { "name": "Emma Griffin" },
+                { "name": "Cristian Reyes" }
+              ]
+            },
+            {
+              "departmentName": "Video",
+              "interns": [
+                { "name": "Josh Matadamas" },
+                { "name": "Julia Ruiz" },
+                { "name": "Emiliano Margarito" },
+                { "name": "Elijah Younger" },
+                { "name": "Lesley Vargas" },
+                { "name": "Natalia Rodas" },
+                { "name": "Nicolas Biala" },
+                { "name": "Talia Mendoza" }
+              ]
+            }
+          ]
+        },
+        {
+          "locationName": "Stockton",
+          "departments": [
+            {
+              "departmentName": "Web Development",
+              "interns": [
+                { "name": "Tyler Nguyen" },
+                { "name": "Christopher Loya" },
+                { "name": "Bledine Messa" }
+              ]
+            },
+            {
+              "departmentName": "Marketing",
+              "interns": []
+            },
+            {
+              "departmentName": "IT",
+              "interns": []
+            },
+            {
+              "departmentName": "Design",
+              "interns": [
+                { "name": "Nat Talaid" },
+                { "name": "Thalia Gu" },
+                { "name": "Gianelli Liguidliguid" }
+              ]
+            },
+            {
+              "departmentName": "Video",
+              "interns": []
+            }
+          ]
+        },
+        {
+          "locationName": "Gilroy",
+          "departments": [
+            {
+              "departmentName": "Web Development",
+              "interns": [
+                { "name": "Youssef Bazzi" },
+                { "name": "Lisandro Jimenez" },
+                { "name": "Ian Ellis" }
+              ]
+            },
+            {
+              "departmentName": "Marketing",
+              "interns": []
+            },
+            {
+              "departmentName": "IT",
+              "interns": []
+            },
+            {
+              "departmentName": "Design",
+              "interns": [
+                { "name": "Yadriel Pareja" },
+                { "name": "Princess Rodriguez" },
+                { "name": "Milagros Perez" }
+              ]
+            },
+            {
+              "departmentName": "Video",
+              "interns": []
+            }
+          ]
+        },
+        {
+          "locationName": "Watsonville",
+          "departments": [
+            {
+              "departmentName": "Web Development",
+              "interns": [
+                { "name": "Ali Taquie" },
+                { "name": "Sergio Medina" },
+                { "name": "Yuliana Morales" },
+                { "name": "Joel Mariscal" }
+              ]
+            },
+            {
+              "departmentName": "Marketing",
+              "interns": [
+                { "name": "Fernanda Jordan" }
+              ]
+            },
+            {
+              "departmentName": "IT",
+              "interns": []
+            },
+            {
+              "departmentName": "Design",
+              "interns": [
+                { "name": "Sebi Perry" },
+                { "name": "Ryan Janowitz" },
+                { "name": "Mirna Gonzales" },
+                { "name": "Nancy Cervantez" }
+              ]
+            },
+            {
+              "departmentName": "Video",
+              "interns": [
+                { "name": "Lizeth Villareal" },
+                { "name": "Ivan Ramirez" },
+                { "name": "Julian Guerrero" },
+                { "name": "Dominic Morales" },
+                { "name": "Luis Perez" },
+                { "name": "Rogelio Valdez-Perez" },
+                { "name": "Melanie Torres" },
+                { "name": "Emily Ramirez" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ];
