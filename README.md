@@ -136,6 +136,13 @@ Step-by-step instructions on how to get the development environment running.
 Deploy the application to a web server or hosting platform.
 Provide instructions for use and optional documentation.
 
+## How to Run the project:
+
+1. installations
+    Install the extension on VsCode titled "Live Server"
+
+2. Instructions
+    Right click on the html file containing the elements, and press the option "Run with Live Server"
 
 ## Deployment Instructions
 
