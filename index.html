@@ -4,12 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NESTwork</title>
-    <script src="./script.js" ></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>NESTwork</h1>
-
-    
+    <div class="main-content">
+        <div class="results">
+            <div class="intern-headers">
+                <div class="intern-heading-container">
+                    <div class="intern-heading">Name</div>
+                </div>
+                <div class="intern-heading-container">
+                    <div class="intern-heading">Location</div>
+                </div>
+                <div class="intern-heading-container">
+                    <div class="intern-heading">Department</div>
+                </div>
+            </div>
+            <div class="intern-pairings-container">
+                <div id="results-list" class="results-list"></div>
+            </div>
+        </div>
+        <div class="result-buttons">
+            <div class="save-edit-buttons">
+                <button class="save-button">Save</button>
+                <button class="edit-button">Edit</button>
+            </div>
+            <button class="download-pdf-button">Download PDF</button>
+        </div>
+    </div>
+    <script src="./script.js"></script> <!-- Ensure this points to the correct file -->
 </body>
 </html>
