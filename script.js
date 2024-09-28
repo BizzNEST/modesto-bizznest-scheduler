@@ -1,101 +1,89 @@
 import { json_array } from './src/util/json_convert.js'; // Import the array
 
-let internData = [...json_array]; // Use the array fetched from json_convert.js
-let filteredInterns = [...internData]; // Start with all interns
+let internData = [...json_array];
+let filteredInterns = [...internData];
 let selectedInterns = new Set(); // Store selected interns
+let selectedPairings = [];
 
 const internTableBody = document.getElementById("intern-tbody");
 const pairingsList = document.getElementById("pairings-list");
 const totalPairings = document.getElementById("total-pairings");
-let selectedPairings = [];
 
-// Populate the intern table when the page loads
+// Populate intern table when the page loads, so it's not empty when starting 
 populateInternTable(filteredInterns);
 
-// Function to populate the intern table dynamically
+//list for the intern pool box
 function populateInternTable(interns) {
-    internTableBody.innerHTML = ''; // Clear existing table
-    interns.forEach(intern => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
+    internTableBody.innerHTML = interns.map(intern => `
+        <tr>
             <td>${intern.name}</td>
             <td>${intern.department}</td>
             <td>${intern.location}</td>
-            <td><button class="toggle-button"></button></td>
-        `;
+            <td><button class="toggle-button" data-name="${intern.name}"></button></td>
+        </tr>
+    `).join('');
 
-        const toggleButton = row.querySelector(".toggle-button");
+    document.querySelectorAll('.toggle-button').forEach(button => {
+        const internName = button.getAttribute('data-name');
+        if (selectedInterns.has(internName)) button.classList.add("selected");
 
-        // Check if this intern has already been selected and update the button state
-        if (selectedInterns.has(intern.name)) {
-            toggleButton.classList.add("selected");
-        }
-
-        toggleButton.addEventListener("click", () => {
-            toggleSelect(toggleButton, intern);
-        });
-
-        internTableBody.appendChild(row);
+        button.addEventListener('click', () => toggleSelect(button, internName));
     });
 }
 
-// Function to add/remove an intern to/from the Pairing Box
-function toggleSelect(button, intern) {
-    if (!button.classList.contains("selected")) {
-        button.classList.add("selected");
-        selectedInterns.add(intern.name);
-        addToPairings(intern);
+// This function is triggered when the "Select" button for an intern is clicked.
+function toggleSelect(button, internName) {
+    if (selectedInterns.has(internName)) {
+        selectedInterns.delete(internName);
+        removeFromPairings(internName);
     } else {
-        button.classList.remove("selected");
-        selectedInterns.delete(intern.name);
-        removeFromPairings(intern);
+        selectedInterns.add(internName);
+        addToPairings(internName);
     }
+    button.classList.toggle('selected');
 }
 
-// Function to add an intern to the Pairing Box
-function addToPairings(intern) {
-    if (!selectedPairings.some(item => item.name === intern.name)) {
-        selectedPairings.push(intern);
-
+// checks if the intern is already in the pairing box: If not, it adds them to the pairing list and creates a list item (li) for the intern.
+function addToPairings(internName) {
+    if (!selectedPairings.includes(internName)) {
+        selectedPairings.push(internName);
+        const intern = internData.find(i => i.name === internName);
         const li = document.createElement("li");
-        li.innerHTML = `
-            ${intern.name} <span class="department">${intern.department}</span>
-            <button class="remove-button">×</button>
-        `;
-
-        li.querySelector(".remove-button").addEventListener("click", () => {
-            pairingsList.removeChild(li);
-            selectedPairings = selectedPairings.filter(item => item.name !== intern.name);
-            selectedInterns.delete(intern.name); // Remove from selected interns set
-            updateTotalPairings();
-            updateInternTableButtons();
-        });
-
+        li.innerHTML = `${intern.name} <span class="department">${intern.department}</span>
+                        <button class="remove-button">×</button>`;
+        li.querySelector(".remove-button").addEventListener("click", () => removeFromPairings(internName, li));
         pairingsList.appendChild(li);
         updateTotalPairings();
     }
 }
 
-// Function to remove an intern from the Pairing Box
-function removeFromPairings(intern) {
-    selectedPairings = selectedPairings.filter(item => item.name !== intern.name);
-    const li = Array.from(pairingsList.children).find(item => item.textContent.includes(intern.name));
+// This function removes an intern from the pairing box and the list of selected interns.
+function removeFromPairings(internName, li = null) {
+    selectedPairings = selectedPairings.filter(name => name !== internName);
+    
     if (li) {
-        pairingsList.removeChild(li);
+        pairingsList.removeChild(li); // If list item (li) is passed, remove from DOM
+    } else {
+        // If no list item is passed, remove from DOM by matching the intern's name
+        const item = Array.from(pairingsList.children).find(item => item.textContent.includes(internName));
+        if (item) {
+            pairingsList.removeChild(item);
+        }
     }
+
+
+// updates the total number of interns that have been paired (selected).
     updateTotalPairings();
-    updateInternTableButtons();
 }
 
-// Update toggle button state when interns are added/removed
+// Update toggle button state when interns are added/removed (visually changes the buttons)
 function updateInternTableButtons() {
-    document.querySelectorAll("#intern-tbody tr").forEach(row => {
-        const internName = row.querySelector("td").textContent;
-        const toggleButton = row.querySelector(".toggle-button");
+    document.querySelectorAll('.toggle-button').forEach(button => {
+        const internName = button.getAttribute('data-name');
         if (selectedInterns.has(internName)) {
-            toggleButton.classList.add("selected");
+            button.classList.add('selected');
         } else {
-            toggleButton.classList.remove("selected");
+            button.classList.remove('selected');
         }
     });
 }
@@ -105,33 +93,33 @@ function updateTotalPairings() {
     totalPairings.textContent = `${selectedPairings.length} Total`;
 }
 
-// **Select All Functionality**
+// Select All  ( adds all the filtered interns to the pairing box. )
 document.getElementById("select-all").addEventListener("click", () => {
     filteredInterns.forEach(intern => {
         if (!selectedInterns.has(intern.name)) {
             selectedInterns.add(intern.name);
-            addToPairings(intern);
+            addToPairings(intern.name);
         }
     });
     updateInternTableButtons();
 });
 
-// **Deselect All Functionality**
+// Deselect All  (this function removes all the filtered interns from the pairing box.)
 document.getElementById("deselect-all").addEventListener("click", () => {
     filteredInterns.forEach(intern => {
         if (selectedInterns.has(intern.name)) {
             selectedInterns.delete(intern.name);
-            removeFromPairings(intern);
+            removeFromPairings(intern.name); // Remove from pairings and update
         }
     });
     updateInternTableButtons();
 });
 
-// Clear all pairings
+// clears all interns from the pairing box.
 document.getElementById("clear-all").addEventListener("click", () => {
-    pairingsList.innerHTML = '';
-    selectedPairings = [];
     selectedInterns.clear();
+    selectedPairings = [];
+    pairingsList.innerHTML = '';
     updateInternTableButtons();
     updateTotalPairings();
 });
@@ -141,34 +129,35 @@ function applyFilters() {
     const activeLocations = Array.from(document.querySelectorAll('#location-filters .active')).map(btn => btn.getAttribute('data-location'));
     const activeDepartments = Array.from(document.querySelectorAll('#department-filters .active')).map(btn => btn.getAttribute('data-department'));
 
-    filteredInterns = internData.filter(intern => {
-        const locationMatch = activeLocations.length === 0 || activeLocations.includes(intern.location);
-        const departmentMatch = activeDepartments.length === 0 || activeDepartments.includes(intern.department);
-        return locationMatch && departmentMatch;
-    });
+    filteredInterns = internData.filter(intern => 
+        // If no location filters are active (length is 0), show all interns
+        (activeLocations.length === 0 || activeLocations.includes(intern.location)) &&
+        (activeDepartments.length === 0 || activeDepartments.includes(intern.department))
+    );
 
-    populateInternTable(filteredInterns);
-    updateInternTableButtons();  // Ensure button states persist
+    populateInternTable(filteredInterns); // Repopulate the intern table with the filtered results
 }
 
-// Toggle Filter Buttons (active state)
 document.querySelectorAll('.filter-buttons button').forEach(button => {
     button.addEventListener('click', () => {
+         // Toggle the "active" class on the button when clicked (visual)
         button.classList.toggle('active');
+        // Apply the filters after toggling the active state of the button
         applyFilters();
     });
 });
 
-// **Search Functionality** for searching from JSON
+// Search Functionality 
 document.getElementById('search').addEventListener('input', function () {
     const query = this.value.toLowerCase();
-    const searchResults = internData.filter(intern => {
-        return intern.name.toLowerCase().includes(query) || 
-               intern.department.toLowerCase().includes(query) || 
-               intern.location.toLowerCase().includes(query);
-    });
-    populateInternTable(searchResults);
-    updateInternTableButtons();  // Ensure button states persist
+
+    // Filter interns based on the search query (you can search names, departments, or city)
+    const searchResults = internData.filter(intern => 
+        intern.name.toLowerCase().includes(query) ||
+        intern.department.toLowerCase().includes(query) ||
+        intern.location.toLowerCase().includes(query)
+    );
+    populateInternTable(searchResults); 
 });
 
 
