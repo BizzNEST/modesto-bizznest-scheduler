@@ -275,9 +275,6 @@ body {
     background-color: #2f855a;
 }
 
-
-
-
 tbody::-webkit-scrollbar {
     width: 15px;
 }
@@ -338,6 +335,8 @@ tbody td {
 .toggle-button {
     width: 25px; 
     height: 25px; 
+    border-style: none;
+    border-color:  none;
     background-color: #444; /* Background color of the button */
     border-radius: 50%; 
     cursor: pointer; /* Changes cursor to pointer on hover */
@@ -570,3 +569,134 @@ position: absolute;
 .generate-button:hover {
     background-color: #2f855a;
 }
+
+
+        /* New Stuff */
+
+
+        *{  font-family: "futura-pt", sans-serif;
+            font-weight: 700;
+            font-style: italic;
+            color: #F2F0EF;
+            margin: 0;
+            padding: 0;
+        }
+        
+        ul {
+            padding: 0;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            background-color: #000000;
+            /* REMOVE THIS LATER */
+            margin-top: 50px; 
+        }
+        
+        .main-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 1200px;
+            height: 550px;
+            background-color: #151515;
+            border-radius: 15px;
+            padding-top: 50px;
+            /* REMOVE THIS LATER */
+            margin-bottom: 50px;
+            margin-top: 150px;
+        }
+        
+        .results {
+            width: 1150px;
+            height: 450px;
+            background-color: #272727;
+            border-radius: 20px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+        }
+        
+        .intern-headers {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            height: 50px;
+            width: 1150px;
+            background-color: #272727;
+            border-top-right-radius: 20px;
+            border-top-left-radius: 20px;
+            border-bottom: 1px solid #646464;
+            position: sticky;
+            top: 0;
+            overflow-y: auto;
+        }
+        
+        .intern-heading {
+            width: 200px;
+            font-size: 22px;
+        }
+        
+        .intern {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            height: 40px;
+        }
+        
+        .intern-name, .intern-department, .intern-location {
+            width: 200px;
+        }
+        
+        .intern-name {
+            font-weight: 500;
+        }
+        
+        .intern-department, .intern-location {
+            font-weight: 200;
+        }
+        
+        .every-other-background {
+            background-color: #454545;
+            border-radius: 10px;
+        }
+        
+        .result-buttons{
+            display: flex;
+            justify-content: space-between;
+            width: 1150px;
+        }
+        
+        .edit-button{
+            width: 60px;
+            height: 40px;
+            border-style: none;
+            border-color:  none;
+            border-radius: 50px;
+            background-color: #292929;
+            border: 1px solid #454545;
+            font-weight: 300;
+        }
+        
+        .download-pdf-button{
+            border-style: none;
+            border-color:  none;
+            width: 170px;
+            height: 40px;
+            border-radius: 50px;
+            font-weight: 300;
+            background: linear-gradient(90deg, #79C8A3, #3B6250);
+        }
+        
+        .save-button {
+            border-style: none;
+            border-color:  none;
+            width: 85px;
+            height: 40px;
+            border-radius: 50px;
+            font-weight: 300;
+            background: linear-gradient(90deg, #79C8A3, #3B6250);
+        }
