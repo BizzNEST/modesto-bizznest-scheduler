@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Results</title>
+   <link rel="stylesheet" href="src/style.css">
+   <!-- for Icons -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<div class="overview">
+   <div class="div">
+    <div class="overlap">
+        <img class="logo-background" src="src/images/background-logo.png" />
+        <div class="blur-fade"></div> <!-- blur effect on top-->
+        <div class="blur-fade-2"></div> <!-- blur effect on bottom-->
+        <div class="logo">
+          <p class="NESTwork"><span class="text-wrapper">NEST</span><span class="span">work</span></p>
+          <img class="vector" src="src/images/Logo.png" alt="NEST logo" />
+        </div>
+
+        <!-- Navigation Bar with Buttons -->
+        <div class="navigation-bar">
+          <button class="nav-button inactive" onclick="window.location.href='index.html'">Overview</button>
+          <button class="nav-button active" onclick="window.location.href='results.html'">Results</button>
+        </div>
+
+        <div class="main-content">
+          <div class="results">
+              <div class="intern-headers">
+                  <div class="intern-heading-container">
+                      <div class="intern-heading">Name</div>
+                  </div>
+                  <div class="intern-heading-container">
+                      <div class="intern-heading">Location</div>
+                  </div>
+                  <div class="intern-heading-container">
+                      <div class="intern-heading">Department</div>
+                  </div>
+              </div>
+              <div class="intern-pairings-container">
+                  <div id="results-list" class="results-list"></div>
+              </div>
+          </div>
+          <div class="result-buttons">
+              <div class="save-edit-buttons">
+                  <button class="save-button">Save</button>
+                  <button class="edit-button">Edit</button>
+              </div>
+              <button class="download-pdf-button">Download PDF</button>
+          </div>
+      </div>
+
+       
+
+           <div class="footer">
+               <div class="footer-text">Powered by</div> 
+               <img class="footer-logo" src="src/images/bottom-logo.png" />
+           </div>
+       </div>
+   </div>
+   <script src="results.js"></script>
+</div>
+</body>
+</html>
