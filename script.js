@@ -11,7 +11,7 @@ const totalPairings = document.getElementById("total-pairings");
 
 // Populate intern table when the page loads, so it's not empty when starting 
 populateInternTable(filteredInterns);
-
+            
 //list for the intern pool box
 function populateInternTable(interns) {
     internTableBody.innerHTML = interns.map(intern => `
