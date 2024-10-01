@@ -161,6 +161,16 @@ document.getElementById('search').addEventListener('input', function () {
 });
 
 
+/////////////////////////////////////////////////////////Vics's Code///////////////////////////////////////////////////////////////////////
+// script.js
+document.getElementById("generate-pairing").addEventListener("click", function () {
+    var toggleFilter = document.getElementById("toggle-pairing-filter");
+    toggleFilter.style.display = toggleFilter.style.display === "block" ? "none" : "block";
+});
+
+
+
+
 /////////////////////////////////////////////////////////Leo's Code///////////////////////////////////////////////////////////////////////
 
 

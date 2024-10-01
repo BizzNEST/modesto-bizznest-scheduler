@@ -570,3 +570,39 @@ position: absolute;
 .generate-button:hover {
     background-color: #2f855a;
 }
+
+/* new */
+/* Example styles for buttons and filter */
+.green-button {
+    background-color: #38a169;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.toggle-pairing-filter {
+    display: none; /* Hidden by default */
+    position: absolute; /* Position it relative to the pairing actions */
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    margin-top: 5px; /* Add some space above */
+}
+
+.toggle-pairing-filter button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    text-align: left;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+}
+
+.toggle-pairing-filter button:hover {
+    background-color: #f1f1f1; /* Hover effect for filter buttons */
+}
