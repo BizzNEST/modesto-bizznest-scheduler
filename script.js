@@ -1,5 +1,4 @@
-
-    import { json_array } from './src/util/json_convert.js'; // Import the array
+import { json_array } from "./src/util/json_convert.js"; // Import the array
 
     let internData = [...json_array];
     let filteredInterns = [...internData];
@@ -134,36 +133,89 @@ function removeFromPairings(internName, li = null) {
         const activeLocations = Array.from(document.querySelectorAll('#location-filters .active')).map(btn => btn.getAttribute('data-location'));
         const activeDepartments = Array.from(document.querySelectorAll('#department-filters .active')).map(btn => btn.getAttribute('data-department'));
 
-    filteredInterns = internData.filter(intern => 
-        // If no location filters are active (length is 0), show all interns
-        (activeLocations.length === 0 || activeLocations.includes(intern.location)) &&
-        (activeDepartments.length === 0 || activeDepartments.includes(intern.department))
-    );
+  filteredInterns = internData.filter(
+    (intern) =>
+      // If no location filters are active (length is 0), show all interns
+      (activeLocations.length === 0 ||
+        activeLocations.includes(intern.location)) &&
+      (activeDepartments.length === 0 ||
+        activeDepartments.includes(intern.department))
+  );
 
-    populateInternTable(filteredInterns); // Repopulate the intern table with the filtered results
+  populateInternTable(filteredInterns); // Repopulate the intern table with the filtered results
 }
 
-    document.querySelectorAll('.filter-buttons button').forEach(button => {
-        button.addEventListener('click', () => {
-             // Toggle the "active" class on the button when clicked (visual)
-        button.classList.toggle('active');
-            // Apply the filters after toggling the active state of the button
-        applyFilters();
-        });
-    });
-
-        // Search Functionality 
-    document.getElementById('search').addEventListener('input', function () {
-        const query = this.value.toLowerCase();
-
-        // Filter interns based on the search query (you can search names, departments, or city)
-    const searchResults = internData.filter(intern => 
-        intern.name.toLowerCase().includes(query) ||
-        intern.department.toLowerCase().includes(query) ||
-        intern.location.toLowerCase().includes(query)
-    );
-    populateInternTable(searchResults); 
+document.querySelectorAll(".filter-buttons button").forEach((button) => {
+  button.addEventListener("click", () => {
+    // Toggle the "active" class on the button when clicked (visual)
+    button.classList.toggle("active");
+    // Apply the filters after toggling the active state of the button
+    applyFilters();
+  });
 });
+
+// Search Functionality
+document.getElementById("search").addEventListener("input", function () {
+  const query = this.value.toLowerCase();
+
+  // Filter interns based on the search query (you can search names, departments, or city)
+  const searchResults = internData.filter(
+    (intern) =>
+      intern.name.toLowerCase().includes(query) ||
+      intern.department.toLowerCase().includes(query) ||
+      intern.location.toLowerCase().includes(query)
+  );
+  populateInternTable(searchResults);
+});
+
+/////////////////////////////////////////////////////////Vics's Code///////////////////////////////////////////////////////////////////////
+
+let isHoveringToggle = false; // To track if the pointer is hovering over the toggle filter
+
+document
+  .getElementById("green-button")
+  .addEventListener("click", function () {
+    const toggleFilter = document.getElementById("toggle-pairing-filter");
+    console.log("click");
+    toggleFilter.style.display =
+      toggleFilter.style.display === "block" ? "none" : "block";
+  });
+
+const toggleFilter = document.getElementById("toggle-pairing-filter");
+
+toggleFilter.addEventListener("pointerover", function () {
+  isHoveringToggle = true; // Set to true when hovering over the toggle filter
+  console.log("pointerover button");
+});
+
+toggleFilter.addEventListener("pointerout", function () {
+  isHoveringToggle = false; // Set to false when the pointer leaves the toggle filter
+  console.log("pointerout button");
+  checkClose(); // Call the function to check if we should close the filter
+});
+
+// Check if we should close the toggle filter
+function checkClose() {
+  setTimeout(() => {
+    // Only close if we're not hovering over the toggle filter or any other buttons
+    if (!isHoveringToggle) {
+      const toggleFilter = document.getElementById("toggle-pairing-filter");
+      toggleFilter.style.display = "none"; // Hide the toggle filter
+      console.log("close");
+    }
+  }, 100); // Adjust the delay as needed
+}
+
+// Assuming you have other buttons that should not trigger closing the filter
+const otherButtons = document.querySelectorAll(".other-button"); // Replace with your button class or selector
+otherButtons.forEach((button) => {
+  button.addEventListener("pointerover", function () {
+    // If you hover over other buttons, don't close the toggle filter
+    isHoveringToggle = false; // This could be set differently based on your logic
+  });
+});
+
+
 
     const generateButton = document.getElementById('generate-pairing');
 
