@@ -614,8 +614,13 @@ position: absolute;
             height: 450px;
             background-color: #272727;
             border-radius: 20px;
-            overflow-y: auto;
             margin-bottom: 15px;
+        }
+
+        .results-list{
+            width: 1150px;
+            height: 400px;
+            overflow-y: auto;
         }
         
         .intern-headers {
