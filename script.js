@@ -84,7 +84,7 @@ function removeFromPairings(internName, li = null) {
     function updateInternTableButtons() {
         document.querySelectorAll('.toggle-button').forEach(button => {
             const internName = button.getAttribute('data-name');
-            if (selectedInterns.has(internName)) {
+            if (selectedInterns.some(i => i.name === internName)) {
                 button.classList.add('selected');
             } else {
                 button.classList.remove('selected');
@@ -100,8 +100,8 @@ function removeFromPairings(internName, li = null) {
         // Select All  ( adds all the filtered interns to the pairing box. )
     document.getElementById("select-all").addEventListener("click", () => {
     filteredInterns.forEach(intern => {
-        if (!selectedInterns.has(intern.name)) {
-            selectedInterns.add(intern.name);
+        if (!selectedInterns.some(i => i.name === intern.name)) {
+            selectedInterns.push(intern);
             addToPairings(intern.name);
         }
     });
@@ -111,17 +111,18 @@ function removeFromPairings(internName, li = null) {
         // Deselect All  (this function removes all the filtered interns from the pairing box.)
     document.getElementById("deselect-all").addEventListener("click", () => {
     filteredInterns.forEach(intern => {
-        if (selectedInterns.has(intern.name)) {
-            selectedInterns.delete(intern.name);
+        if (selectedInterns.some(i => i.name === intern.name)) {
+            let intern_index = selectedInterns.indexOf(intern);
+            selectedInterns.splice(intern_index,1);
             removeFromPairings(intern.name); // Remove from pairings and update
-        }
+            }
     });
     updateInternTableButtons();
 });
 
         // clears all interns from the pairing box.
     document.getElementById("clear-all").addEventListener("click", () => {
-        selectedInterns.clear();
+        selectedInterns = [];
         selectedPairings = [];
         pairingsList.innerHTML = '';
         updateInternTableButtons();
