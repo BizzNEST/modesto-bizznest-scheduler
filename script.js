@@ -220,27 +220,89 @@ otherButtons.forEach((button) => {
     const generateButton = document.getElementById('generate-pairing');
 
     let internPairs = [];
+    let isPairedByLocation = false;
+    let isPairedByDepartment = false;
 
-    function generatePairings() {
-            // Shuffle the interns
-        const shuffledInterns = selectedInterns.sort(() => 0.5 - Math.random());
+    const locationButton = document.querySelector("#toggle-pairing-filter button:nth-child(1)");
+    const departmentButton = document.querySelector("#toggle-pairing-filter button:nth-child(2)");
 
-            // Create the internPairs
-        for (let i = 0; i < shuffledInterns.length; i += 2) {
-            if (i + 1 < shuffledInterns.length) {
-            internPairs.push([shuffledInterns[i], shuffledInterns[i + 1]]);
-            } else {
-            // Handle case with an odd number of interns
-        internPairs.push([shuffledInterns[i]]);
-      }
-  }
+    // Toggle logic for the buttons
+    locationButton.addEventListener("click", function () {
+        isPairedByLocation = !isPairedByLocation;
+        console.log("Paired by Location:", isPairedByLocation);
+    
+        // Toggle the selected class to change color
+        if (isPairedByLocation) {
+            locationButton.classList.add("selected");
+        } else {
+            locationButton.classList.remove("selected");
+        }
+    });
+  
+    // Toggle logic for "By Department" button
+    departmentButton.addEventListener("click", function () {
+        isPairedByDepartment = !isPairedByDepartment;
+        console.log("Paired by Department:", isPairedByDepartment);
+
+        // Toggle the selected class to change color
+        if (isPairedByDepartment) {
+            departmentButton.classList.add("selected");
+        } else {
+            departmentButton.classList.remove("selected");
+        }
+});
+
+   function generatePairings() {
+    // Shuffle the interns
+    let shuffledInterns = selectedInterns.sort(() => 0.5 - Math.random());
+    internPairs = [];
+
+     // Group interns by location or department if toggled on
+    if (isPairedByLocation) {
+        const internsByLocation = groupBy(shuffledInterns, "location");
+        pairWithinGroups(internsByLocation);
+    } else if (isPairedByDepartment) {
+        const internsByDepartment = groupBy(shuffledInterns, "department");
+        pairWithinGroups(internsByDepartment);
+    } else {
+        // Normal random pairing
+        createPairs(shuffledInterns);
+    }
 
             // Log the flattened data and internPairs
     console.log('internPairs:', internPairs.map(pair => pair.map(intern => ({ name: intern.name, location: intern.location, department: intern.department }))));
     sessionStorage.setItem('internPairs', JSON.stringify(internPairs));
     window.location.href = 'results.html';
 
-}
+    }
+
+    function groupBy(interns, key) {
+        return interns.reduce((grouped, intern) => {
+            const groupKey = intern[key];
+            if(!grouped[groupKey]) {
+                grouped[groupKey] = [];
+            } 
+            grouped[groupKey].push(intern);
+            return grouped;
+        }, {});
+    }
+
+    function pairWithinGroups(groupedInterns) {
+        Object.values(groupedInterns).forEach(group => {
+            createPairs(group);
+        });
+    }
+
+    function createPairs(interns) {
+        for (let i = 0; i < interns.length; i += 2) {
+            if (i + 1 < interns.length) {
+              internPairs.push([interns[i], interns[i + 1]]);
+            } else {
+              // Handle case with an odd number of interns
+              internPairs.push([interns[i]]);
+            }
+          }
+        }
 
             // Add the click event listener to the button
     generateButton.addEventListener('click', generatePairings);
