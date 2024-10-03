@@ -84,7 +84,7 @@ function removeFromPairings(internName, li = null) {
     function updateInternTableButtons() {
         document.querySelectorAll('.toggle-button').forEach(button => {
             const internName = button.getAttribute('data-name');
-            if (selectedInterns.has(internName)) {
+            if (selectedInterns.some(i => i.name === internName)) {
                 button.classList.add('selected');
             } else {
                 button.classList.remove('selected');
@@ -100,8 +100,8 @@ function removeFromPairings(internName, li = null) {
         // Select All  ( adds all the filtered interns to the pairing box. )
     document.getElementById("select-all").addEventListener("click", () => {
     filteredInterns.forEach(intern => {
-        if (!selectedInterns.has(intern.name)) {
-            selectedInterns.add(intern.name);
+        if (!selectedInterns.some(i => i.name === intern.name)) {
+            selectedInterns.push(intern);
             addToPairings(intern.name);
         }
     });
@@ -111,17 +111,18 @@ function removeFromPairings(internName, li = null) {
         // Deselect All  (this function removes all the filtered interns from the pairing box.)
     document.getElementById("deselect-all").addEventListener("click", () => {
     filteredInterns.forEach(intern => {
-        if (selectedInterns.has(intern.name)) {
-            selectedInterns.delete(intern.name);
+        if (selectedInterns.some(i => i.name === intern.name)) {
+            let intern_index = selectedInterns.indexOf(intern);
+            selectedInterns.splice(intern_index,1);
             removeFromPairings(intern.name); // Remove from pairings and update
-        }
+            }
     });
     updateInternTableButtons();
 });
 
         // clears all interns from the pairing box.
     document.getElementById("clear-all").addEventListener("click", () => {
-        selectedInterns.clear();
+        selectedInterns = [];
         selectedPairings = [];
         pairingsList.innerHTML = '';
         updateInternTableButtons();
@@ -256,24 +257,31 @@ otherButtons.forEach((button) => {
     // Shuffle the interns
     let shuffledInterns = selectedInterns.sort(() => 0.5 - Math.random());
     internPairs = [];
+    let unpairedInterns = [];
 
      // Group interns by location or department if toggled on
-    if (isPairedByLocation) {
+    if (isPairedByLocation && isPairedByDepartment) {
         const internsByLocation = groupBy(shuffledInterns, "location");
-        pairWithinGroups(internsByLocation);
+        Object.values(internsByLocation).forEach(locationGroup => {
+            const internsByDept = groupBy(locationGroup, "department");
+            pairWithinGroups(internsByDept, unpairedInterns); // Pair within department inside each location
+        });
+    } else if (isPairedByLocation) {
+        const internsByLocation = groupBy(shuffledInterns, "location");
+        pairWithinGroups(internsByLocation, unpairedInterns);
     } else if (isPairedByDepartment) {
         const internsByDepartment = groupBy(shuffledInterns, "department");
-        pairWithinGroups(internsByDepartment);
+        pairWithinGroups(internsByDepartment, unpairedInterns);
     } else {
-        // Normal random pairing
-        createPairs(shuffledInterns);
+        createPairs(shuffledInterns, unpairedInterns); // Random pairing with no filter
     }
 
             // Log the flattened data and internPairs
     console.log('internPairs:', internPairs.map(pair => pair.map(intern => ({ name: intern.name, location: intern.location, department: intern.department }))));
+    console.log('unpairedInterns:', unpairedInterns.map(intern => ({ name: intern.name, location: intern.location, department: intern.department })));
     sessionStorage.setItem('internPairs', JSON.stringify(internPairs));
+    sessionStorage.setItem('unpairedInterns', JSON.stringify(unpairedInterns));
     window.location.href = 'results.html';
-
     }
 
     function groupBy(interns, key) {
@@ -287,19 +295,24 @@ otherButtons.forEach((button) => {
         }, {});
     }
 
-    function pairWithinGroups(groupedInterns) {
+    function pairWithinGroups(groupedInterns, unpairedInterns) {
         Object.values(groupedInterns).forEach(group => {
-            createPairs(group);
+            if (group.length >= 2) {
+                createPairs(group, unpairedInterns);
+            } else {
+                // If the group has fewer than 2 interns, they are unpaired
+                unpairedInterns.push(...group);
+            }
         });
     }
 
-    function createPairs(interns) {
+    function createPairs(interns, unpairedInterns) {
         for (let i = 0; i < interns.length; i += 2) {
             if (i + 1 < interns.length) {
               internPairs.push([interns[i], interns[i + 1]]);
             } else {
               // Handle case with an odd number of interns
-              internPairs.push([interns[i]]);
+              unpairedInterns.push(interns[i]);
             }
           }
         }
