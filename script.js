@@ -209,6 +209,7 @@ function checkClose() {
 
 // Assuming you have other buttons that should not trigger closing the filter
 const otherButtons = document.querySelectorAll(".other-button"); // Replace with your button class or selector
+
 otherButtons.forEach((button) => {
   button.addEventListener("pointerover", function () {
     // If you hover over other buttons, don't close the toggle filter
@@ -218,48 +219,48 @@ otherButtons.forEach((button) => {
 
 
 
-    const generateButton = document.getElementById('generate-pairing');
+const generateButton = document.getElementById('generate-pairing');
 
-    let internPairs = [];
-    let isPairedByLocation = false;
-    let isPairedByDepartment = false;
+let internPairs = [];
+let isPairedByLocation = false;
+let isPairedByDepartment = false;
 
-    const locationButton = document.querySelector("#toggle-pairing-filter button:nth-child(1)");
-    const departmentButton = document.querySelector("#toggle-pairing-filter button:nth-child(2)");
+const locationButton = document.querySelector("#toggle-pairing-filter button:nth-child(1)");
+const departmentButton = document.querySelector("#toggle-pairing-filter button:nth-child(2)");
 
-    // Toggle logic for the buttons
-    locationButton.addEventListener("click", function () {
-        isPairedByLocation = !isPairedByLocation;
-        console.log("Paired by Location:", isPairedByLocation);
-    
-        // Toggle the selected class to change color
-        if (isPairedByLocation) {
-            locationButton.classList.add("selected");
-        } else {
-            locationButton.classList.remove("selected");
-        }
-    });
+// Toggle logic for the buttons
+locationButton.addEventListener("click", function () {
+    isPairedByLocation = !isPairedByLocation;
+    console.log("Paired by Location:", isPairedByLocation);
+
+    // Toggle the selected class to change color
+    if (isPairedByLocation) {
+        locationButton.classList.add("selected");
+    } else {
+        locationButton.classList.remove("selected");
+    }
+});
   
-    // Toggle logic for "By Department" button
-    departmentButton.addEventListener("click", function () {
-        isPairedByDepartment = !isPairedByDepartment;
-        console.log("Paired by Department:", isPairedByDepartment);
+// Toggle logic for "By Department" button
+departmentButton.addEventListener("click", function () {
+    isPairedByDepartment = !isPairedByDepartment;
+    console.log("Paired by Department:", isPairedByDepartment);
 
-        // Toggle the selected class to change color
-        if (isPairedByDepartment) {
-            departmentButton.classList.add("selected");
-        } else {
-            departmentButton.classList.remove("selected");
-        }
+    // Toggle the selected class to change color
+    if (isPairedByDepartment) {
+        departmentButton.classList.add("selected");
+    } else {
+        departmentButton.classList.remove("selected");
+    }
 });
 
-   function generatePairings() {
+function generatePairings() {
     // Shuffle the interns
     let shuffledInterns = selectedInterns.sort(() => 0.5 - Math.random());
     internPairs = [];
     let unpairedInterns = [];
 
-     // Group interns by location or department if toggled on
+    // Group interns by location or department if toggled on
     if (isPairedByLocation && isPairedByDepartment) {
         const internsByLocation = groupBy(shuffledInterns, "location");
         Object.values(internsByLocation).forEach(locationGroup => {
@@ -276,47 +277,47 @@ otherButtons.forEach((button) => {
         createPairs(shuffledInterns, unpairedInterns); // Random pairing with no filter
     }
 
-            // Log the flattened data and internPairs
+        // Log the flattened data and internPairs
     console.log('internPairs:', internPairs.map(pair => pair.map(intern => ({ name: intern.name, location: intern.location, department: intern.department }))));
     console.log('unpairedInterns:', unpairedInterns.map(intern => ({ name: intern.name, location: intern.location, department: intern.department })));
     sessionStorage.setItem('internPairs', JSON.stringify(internPairs));
     sessionStorage.setItem('unpairedInterns', JSON.stringify(unpairedInterns));
     window.location.href = 'results.html';
-    }
+};
 
-    function groupBy(interns, key) {
-        return interns.reduce((grouped, intern) => {
-            const groupKey = intern[key];
-            if(!grouped[groupKey]) {
-                grouped[groupKey] = [];
-            } 
-            grouped[groupKey].push(intern);
-            return grouped;
-        }, {});
-    }
+function groupBy(interns, key) {
+    return interns.reduce((grouped, intern) => {
+        const groupKey = intern[key];
+        if(!grouped[groupKey]) {
+            grouped[groupKey] = [];
+        } 
+        grouped[groupKey].push(intern);
+        return grouped;
+    }, {});
+};
 
-    function pairWithinGroups(groupedInterns, unpairedInterns) {
-        Object.values(groupedInterns).forEach(group => {
-            if (group.length >= 2) {
-                createPairs(group, unpairedInterns);
-            } else {
-                // If the group has fewer than 2 interns, they are unpaired
-                unpairedInterns.push(...group);
-            }
-        });
-    }
-
-    function createPairs(interns, unpairedInterns) {
-        for (let i = 0; i < interns.length; i += 2) {
-            if (i + 1 < interns.length) {
-              internPairs.push([interns[i], interns[i + 1]]);
-            } else {
-              // Handle case with an odd number of interns
-              unpairedInterns.push(interns[i]);
-            }
-          }
+function pairWithinGroups(groupedInterns, unpairedInterns) {
+    Object.values(groupedInterns).forEach(group => {
+        if (group.length >= 2) {
+            createPairs(group, unpairedInterns);
+        } else {
+            // If the group has fewer than 2 interns, they are unpaired
+            unpairedInterns.push(...group);
         }
+    });
+};
 
-            // Add the click event listener to the button
-    generateButton.addEventListener('click', generatePairings);
+function createPairs(interns, unpairedInterns) {
+    for (let i = 0; i < interns.length; i += 2) {
+        if (i + 1 < interns.length) {
+            internPairs.push([interns[i], interns[i + 1]]);
+        } else {
+            // Handle case with an odd number of interns
+            unpairedInterns.push(interns[i]);
+        }
+    }
+};
+
+        // Add the click event listener to the button
+generateButton.addEventListener('click', generatePairings);
     
