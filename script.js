@@ -209,6 +209,7 @@ function checkClose() {
 
 // Assuming you have other buttons that should not trigger closing the filter
 const otherButtons = document.querySelectorAll(".other-button"); // Replace with your button class or selector
+
 otherButtons.forEach((button) => {
   button.addEventListener("pointerover", function () {
     // If you hover over other buttons, don't close the toggle filter
@@ -218,31 +219,127 @@ otherButtons.forEach((button) => {
 
 
 
-    const generateButton = document.getElementById('generate-pairing');
+const generateButton = document.getElementById('generate-pairing');
 
-    let internPairs = [];
+let internPairs = [];
+let isPairedByLocation = false;
+let isPairedByDepartment = false;
 
-    function generatePairings() {
-            // Shuffle the interns
-        const shuffledInterns = selectedInterns.sort(() => 0.5 - Math.random());
+const locationButton = document.querySelector("#toggle-pairing-filter button:nth-child(1)");
+const departmentButton = document.querySelector("#toggle-pairing-filter button:nth-child(2)");
 
-            // Create the internPairs
-        for (let i = 0; i < shuffledInterns.length; i += 2) {
-            if (i + 1 < shuffledInterns.length) {
-            internPairs.push([shuffledInterns[i], shuffledInterns[i + 1]]);
-            } else {
-            // Handle case with an odd number of interns
-        internPairs.push([shuffledInterns[i]]);
-      }
-  }
+// Toggle logic for the buttons
+locationButton.addEventListener("click", function () {
+    isPairedByLocation = !isPairedByLocation;
+    console.log("Paired by Location:", isPairedByLocation);
 
-            // Log the flattened data and internPairs
+    // Toggle the selected class to change color
+    if (isPairedByLocation) {
+        locationButton.classList.add("selected");
+    } else {
+        locationButton.classList.remove("selected");
+    }
+});
+  
+// Toggle logic for "By Department" button
+departmentButton.addEventListener("click", function () {
+    isPairedByDepartment = !isPairedByDepartment;
+    console.log("Paired by Department:", isPairedByDepartment);
+
+    // Toggle the selected class to change color
+    if (isPairedByDepartment) {
+        departmentButton.classList.add("selected");
+    } else {
+        departmentButton.classList.remove("selected");
+    }
+});
+
+function generatePairings() {
+    // Shuffle the interns
+    let shuffledInterns = selectedInterns.sort(() => 0.5 - Math.random());
+    internPairs = [];
+    let unpairedInterns = [];
+
+    // Group interns by location or department if toggled on
+    if (isPairedByLocation && isPairedByDepartment) {
+        const internsByLocation = groupBy(shuffledInterns, "location");
+        Object.values(internsByLocation).forEach(locationGroup => {
+            const internsByDept = groupBy(locationGroup, "department");
+            pairWithinGroups(internsByDept, unpairedInterns); // Pair within department inside each location
+        });
+    } else if (isPairedByLocation) {
+        const internsByLocation = groupBy(shuffledInterns, "location");
+        pairWithinGroups(internsByLocation, unpairedInterns);
+    } else if (isPairedByDepartment) {
+        const internsByDepartment = groupBy(shuffledInterns, "department");
+        pairWithinGroups(internsByDepartment, unpairedInterns);
+    } else {
+        createPairs(shuffledInterns, unpairedInterns); // Random pairing with no filter
+    }
+
+        // Log the flattened data and internPairs
     console.log('internPairs:', internPairs.map(pair => pair.map(intern => ({ name: intern.name, location: intern.location, department: intern.department }))));
+    console.log('unpairedInterns:', unpairedInterns.map(intern => ({ name: intern.name, location: intern.location, department: intern.department })));
     sessionStorage.setItem('internPairs', JSON.stringify(internPairs));
+    sessionStorage.setItem('unpairedInterns', JSON.stringify(unpairedInterns));
     window.location.href = 'results.html';
+};
 
-}
+function groupBy(interns, key) {
+    return interns.reduce((grouped, intern) => {
+        const groupKey = intern[key];
+        if(!grouped[groupKey]) {
+            grouped[groupKey] = [];
+        } 
+        grouped[groupKey].push(intern);
+        return grouped;
+    }, {});
+};
 
-            // Add the click event listener to the button
-    generateButton.addEventListener('click', generatePairings);
+                    // Get modal element
+        const modal = document.getElementById('tutorial-modal');
+
+                    // Get open modal button
+        const openModalBtn = document.getElementById('openModalBtn');
+
+                    // Get close button
+        const closeBtn = document.querySelector('.close');
+
+                    // Listen for open click
+        openModalBtn.addEventListener('click', () => {
+            modal.style.display = 'block'; // Show the modal
+        });
+
+                    // Listen for close click
+        closeBtn.addEventListener('click', () => {
+            if (modal.style.display = 'block') {
+                modal.style.display = 'none'; // Hide the modal
+        }
+    });
+                    // Add the click event listener to the button
+            generateButton.addEventListener('click', generatePairings);
+function pairWithinGroups(groupedInterns, unpairedInterns) {
+    Object.values(groupedInterns).forEach(group => {
+        if (group.length >= 2) {
+            createPairs(group, unpairedInterns);
+        } else {
+            // If the group has fewer than 2 interns, they are unpaired
+            unpairedInterns.push(...group);
+        }
+    });
+};
+
+function createPairs(interns, unpairedInterns) {
+    for (let i = 0; i < interns.length; i += 2) {
+        if (i + 1 < interns.length) {
+            internPairs.push([interns[i], interns[i + 1]]);
+        } else {
+            // Handle case with an odd number of interns
+            unpairedInterns.push(interns[i]);
+        }
+    }
+};
+
+        // Add the click event listener to the button
+generateButton.addEventListener('click', generatePairings);
     
