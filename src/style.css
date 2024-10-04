@@ -575,6 +575,10 @@ tbody td {
   background-color: #2b774e; /* Hover effect for filter buttons */
 }
 
+#toggle-pairing-filter button.selected {
+  background-color: #5a635b; /* Change to any color for selected state */
+  color: white; /* Change text color as needed */
+}
 /* New Stuff */
 
 
