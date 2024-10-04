@@ -1,8 +1,9 @@
-
+import * as generate_CSV from "./src/util/generate_csv.js"; 
+document.addEventListener("DOMContentLoaded", () => {
     let internPairs = []; 
     let unpairedInterns = [];
 
-        // Gets the data from sessionStorage   
+    // Gets the data from sessionStorage   
     function loadInternPairs() {
         const storedPairs = JSON.parse(sessionStorage.getItem('internPairs')) || [];
         const storedUnpaired = JSON.parse(sessionStorage.getItem('unpairedInterns')) || []; 
@@ -60,3 +61,10 @@
     window.onload = function() {
         loadInternPairs();
     };
+
+    //event listener for download csv
+    document.getElementById('download-csv-button').addEventListener('click', function () {
+        generate_CSV.downloadCSV(generate_CSV.generateCSV(internPairs), 'intern_pairs.csv');
+    });
+});
+
