@@ -47,7 +47,10 @@
 
           <div class="left-side">
             <!-- 'left side' is the left big box ;intern pool box-->
-            <h1>Intern Pool</h1>
+            <div class="intern-pool-container">
+                <h1>Intern Pool</h1>
+                <button id="openModalBtn" class="tutorial-button">?</button>
+            </div>
             <div class="filters">
               <div class="filter-group">
                 <label>Location:</label>
@@ -135,6 +138,13 @@
             <div class="footer-text">Powered by</div>
             <img class="footer-logo" src="src/images/bottom-logo.png" />
           </div>
+        </div>
+      </div>
+
+      <div id="tutorial-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img class="tutorial-image" src = "/src/images/tutorial.png">
         </div>
       </div>
 

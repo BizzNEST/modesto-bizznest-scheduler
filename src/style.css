@@ -713,3 +713,66 @@ tbody td {
             font-weight: 300;
             background: linear-gradient(90deg, #79C8A3, #3B6250);
         }
+
+        .intern-pool-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .tutorial-button {
+          width: 33px;
+          height: 33px;
+          border-radius: 50%;
+          background-color: #333;
+          border-style: none;
+          border-color: none;
+        }
+
+        .tutorial-button:hover {
+            cursor: pointer
+        }
+
+        /* MODAL CSS */
+
+        .modal {
+          display: none; /* Hidden by default */
+          position: fixed; /* Stay in place */
+          z-index: 1000; /* Sit on top */
+          left: 0;
+          top: 0;
+          width: 100%; /* Full width */
+          height: 100%; /* Full height */
+          overflow: auto; /* Enable scroll if needed */
+          background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+      }
+      .modal-content {
+          background-color: #151515;
+          border-radius: 20px;
+          border-color: #646464;
+          margin:  auto; /* 15% from the top and centered */
+          padding: 20px;
+          width: 80%; /* Could be more or less, depending on screen size */
+      }
+      .close {
+          color: #aaa;
+          float: right;
+          font-size: 28px;
+          font-weight: bold;
+          margin-bottom: 10px;
+      }
+      .close:hover,
+      .close:focus {
+          color: black;
+          text-decoration: none;
+          cursor: pointer;
+      }
+
+      .modul-header {
+        color: red;
+      }
+
+      .tutorial-image {
+        width: 100%;
+        height: 100%;
+      }
