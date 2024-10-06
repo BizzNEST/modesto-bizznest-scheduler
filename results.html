@@ -27,7 +27,6 @@
           <button class="nav-button inactive" onclick="window.location.href='index.html'">Overview</button>
           <button class="nav-button active" onclick="window.location.href='results.html'">Results</button>
         </div>
-
         <div class="main-content">
           <div class="results">
               <div class="intern-headers">
@@ -47,22 +46,37 @@
           </div>
           <div class="result-buttons">
               <div class="save-edit-buttons">
-                  <button class="save-button">Save</button>
-                  <button class="edit-button">Edit</button>
+                  <button class="save-button" id="save-button">Save</button>
+                  <button class="edit-button" id="edit-button">Edit</button>
               </div>
               <button id="download-csv-button" class="download-pdf-button">Download CSV</button>
           </div>
       </div>
-
-       
-
            <div class="footer">
                <div class="footer-text">Powered by</div> 
                <img class="footer-logo" src="src/images/bottom-logo.png" />
            </div>
        </div>
    </div>
-   
+   <div class="edit-window">
+    <div class="edit-window-header">
+        <h1>Add Intern</h1><img src="src/images/icons/edit_icon.svg">
+    </div>
+    <div class="edit-search-bar_container">
+        <input type="text" id="edit-search-bar" placeholder="Search" />
+        <div class="search-results-container">    
+        </div>
+      </div>
+        <h4>Unpaired Interns</h4>
+        <div class="unpaired-results">
+        </div>
+        <h4>Recent</h4>
+        <div class="recent-results">
+        </div>
+        <div class="edit-window-footer" >
+            <button class="close-button">Close</button>
+        </div>
+   </div>
 </div>
 </body>
 </html>

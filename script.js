@@ -282,6 +282,7 @@ function generatePairings() {
     console.log('unpairedInterns:', unpairedInterns.map(intern => ({ name: intern.name, location: intern.location, department: intern.department })));
     sessionStorage.setItem('internPairs', JSON.stringify(internPairs));
     sessionStorage.setItem('unpairedInterns', JSON.stringify(unpairedInterns));
+    sessionStorage.setItem('internData',JSON.stringify(internData));
     window.location.href = 'results.html';
 };
 
