@@ -40,8 +40,6 @@ import { json_array } from "./src/util/json_convert.js"; // Import the array
     }
 
     function toggleSelect(button, internName) {
-        console.log(button);
-        console.log(internName);
         const intern = internData.find(i => i.name === internName);
         if (selectedInterns.some(i => i.name === internName)) {
             selectedInterns = selectedInterns.filter(i => i.name !== internName);
