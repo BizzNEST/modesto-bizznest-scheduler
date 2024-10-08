@@ -34,11 +34,14 @@ import { json_array } from "./src/util/json_convert.js"; // Import the array
         button.addEventListener('click', () => {
 
             toggleSelect(button, internName);
+
         });
     });
     }
 
     function toggleSelect(button, internName) {
+        console.log(button);
+        console.log(internName);
         const intern = internData.find(i => i.name === internName);
         if (selectedInterns.some(i => i.name === internName)) {
             selectedInterns = selectedInterns.filter(i => i.name !== internName);
@@ -58,9 +61,19 @@ import { json_array } from "./src/util/json_convert.js"; // Import the array
             const li = document.createElement("li");
             li.innerHTML = `${intern.name} <span class="department">${intern.department}</span>
                             <button class="remove-button">×</button>`;
-            li.querySelector(".remove-button").addEventListener("click", () => removeFromPairings(internName, li));
+            li.querySelector(".remove-button").addEventListener("click", () => {      
+            removeFromPairings(internName, li)
+            let all_toggle_butttons = document.querySelectorAll('.toggle-button');
+            console.log(all_toggle_butttons)
+            for(let button of all_toggle_butttons){
+                   if(button.getAttribute("data-name") === internName){
+                        toggleSelect(button,internName);
+                        }
+                }
+            });
             pairingsList.appendChild(li);
             updateTotalPairings();
+
         }
     }
 
@@ -77,6 +90,8 @@ function removeFromPairings(internName, li = null) {
     }
 
     updateTotalPairings();
+
+
 }
 
 
