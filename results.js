@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <div class="intern-name">${intern.name}</div>
                     <div class="intern-location">${intern.location}</div>
                     <div class="intern-department">${intern.department}</div>
-                <button class="remove-button" id="${intern.name} remove-button">Remove</button>
+                 <button class="remove-button" id="${intern.name} remove-button">Remove</button>
             </div>
                 `;
         });
@@ -395,9 +395,11 @@ document.addEventListener("DOMContentLoaded", () => {
         let remove_buttons_elements = get_all_remove_buttons()
         for (let element of add_button_elements) {
             element.style.visibility = "hidden";
+            // element.style.position = "absolute";
             }
         for (let element of remove_buttons_elements) {
             element.style.visibility = "hidden";
+            // element.style.position = "absolute" 
             }
         edit_mode_state = false;
         }

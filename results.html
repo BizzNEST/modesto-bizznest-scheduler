@@ -6,6 +6,9 @@
    <title>Results</title>
    <link rel="stylesheet" href="src/stylesheets/style.css" />
    <link rel="stylesheet" href="src/stylesheets/results-style.css" />
+   <link rel="stylesheet" href="src/stylesheets/mobile-results-style.css" />
+   <link rel="stylesheet" href="src/stylesheets/results-modul-styles.css"/>
+
    <!-- for Icons -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
    <script type="module" src="results.js"></script>
@@ -30,6 +33,7 @@
         <div class="main-content">
           <div class="results">
               <div class="intern-headers">
+                <button class="invisible-green-button"></button>
                   <div class="intern-heading-container">
                       <div class="intern-heading">Name</div>
                   </div>
@@ -39,17 +43,19 @@
                   <div class="intern-heading-container">
                       <div class="intern-heading">Department</div>
                   </div>
+                <button class="invisible-red-button"></button>
               </div>
               <div class="intern-pairings-container">
                   <div id="results-list" class="results-list"></div>
               </div>
-          </div>
+          
           <div class="result-buttons">
               <div class="save-edit-buttons">
                   <button class="save-button" id="save-button">Save</button>
                   <button class="edit-button" id="edit-button">Edit</button>
               </div>
               <button id="download-csv-button" class="download-pdf-button">Download CSV</button>
+          </div>   
           </div>
       </div>
            <div class="footer">
@@ -77,6 +83,6 @@
             <button class="close-button">Close</button>
         </div>
    </div>
-</div>
+<!-- </div> -->
 </body>
 </html>
