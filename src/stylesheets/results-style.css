@@ -45,6 +45,7 @@ body {
     background-color: #272727;
     border-radius: 20px;
     margin-bottom: 15px;
+    z-index: 1;
 }
 
 .results-list{
