@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <div class="intern-name">${intern.name}</div>
                     <div class="intern-location">${intern.location}</div>
                     <div class="intern-department">${intern.department}</div>
-                 <button class="remove-button" id="${intern.name} remove-button">Remove</button>
+                <button class="remove-button" id="${intern.name}">Remove</button>
             </div>
                 `;
         });
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="intern-name">${intern.name}</div>
                 <div class="intern-location">${intern.location}</div>
                 <div class="intern-department">${intern.department}</div>
-            <button class="remove-button" id="${intern.name} remove-button">Remove</button>
+            <button class="remove-button" id="${intern.name}">Remove</button>
         </div>
         `;
 
@@ -75,6 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
         window_functionality_setup();
         edit_button_functionality_setup();
         add_button_functionality_setup();
+        remove_button_functionality_setup();
         Accuracy.calculatePairAccuracy(internPairs);
     };
 
@@ -88,6 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
     //Sets Up Window Functionality
     let card_hovering = false;
     let add_button_parent = undefined;
+    let remove_button_parent = undefined
     let edit_mode_state = false
     let removedInterns = []
     
@@ -184,7 +186,8 @@ document.addEventListener("DOMContentLoaded", () => {
         move_intern(added_intern_name,add_button_parent);
         close_edit_window();
         activate_edit_mode();
-        add_button_functionality_setup()
+        add_button_functionality_setup();
+        remove_button_functionality_setup();
     }
 
     function move_intern(intern_name,button_parent){
@@ -206,6 +209,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 added_intern = remove_unpaired_intern(removed_intern_info[1])
                 return added_intern;
                 }
+            //if its in removed interns
+            removed_intern_info = get_unpaired_intern(removedInterns, intern_name);
+            if(removed_intern_info){
+                added_intern = remove_unpaired_intern(removed_intern_info[1]);
+                return added_intern;
+            }
         return (undefined);
         }
         added_intern = remove_intern()
@@ -424,6 +433,46 @@ document.addEventListener("DOMContentLoaded", () => {
             element.addEventListener('click',on_add_click)
             }
         }
+    
+    //remove Button Functionality
+    function remove_button_functionality_setup(){
+        let current_buttons = get_all_remove_buttons();
+        if(current_buttons){
+            for(let element of current_buttons){
+                element.removeEventListener('click',remove_on_click);
+                }
+            }
+        let add_button_elements = get_all_remove_buttons();
+        for(let element of add_button_elements){
+            element.addEventListener('click', remove_on_click);
+        }
+    }
+
+    function remove_on_click(button){
+        remove_button_parent = button.target.id;
+        let intern_in_pair_info = get_intern_in_pair(internPairs, remove_button_parent);
+        let unpaired_intern_info = get_unpaired_intern(unpairedInterns ,remove_button_parent)
+        let added_intern = undefined;
+        if(unpaired_intern_info){
+            added_intern = remove_unpaired_intern(unpaired_intern_info[1]);
+            //console.log(added_intern);
+        }
+        if(intern_in_pair_info){
+            added_intern = remove_intern_from_pair(intern_in_pair_info[1], intern_in_pair_info[2]);
+            let pair = internPairs[intern_in_pair_info[1]]  //we can loop through internPairs check the length of arrays and if 
+            //if pair has only one person it will be moved to unpaired.
+            if(pair.length <= 1){
+                unpairedInterns.push(pair[0]);
+                internPairs.splice(intern_in_pair_info[1], 1);
+            }
+        }
+        displayInterns(internPairs, unpairedInterns);
+        removedInterns.push(added_intern);
+        activate_edit_mode();
+        add_button_functionality_setup();
+        remove_button_functionality_setup();
+
+    }
 
     function on_add_click(button) {
         add_button_parent = button.target.id;
