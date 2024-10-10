@@ -12,7 +12,7 @@
     overflow: hidden;
     width: 100%;
     height: 832px;
-    position: relative;
+    /* position: relative; */
   }
   
   .overview .overlap {
@@ -46,42 +46,42 @@
   }
   
   .overview .logo-background {
-    position: absolute;
-    width: 880px;
+    /* position: absolute; */
+    width: 100%;
     height: 832px;
-    top: 51px;
-    left: 650px;
+    /* top: 51px;
+    left: 650px; */
     z-index: 0;
   }
   
   /* blur fade on top */
   .overview .blur-fade {
-    position: absolute;
+    /* position: absolute; */
     width: 100%;
     height: 151px;
-    top: 0;
+    /* top: 0; */
   
     backdrop-filter: blur(100px);
     mask-image: linear-gradient(to bottom, black 40%, transparent 90%);
   }
   
   .overview .blur-fade-2 {
-    position: absolute;
+    /* position: absolute; */
     width: 1370px;
     height: 151px;
-    top: 813px;
-    left: 3px;
+    /* top: 813px;
+    left: 3px; */
     background-color: #00000040;
     backdrop-filter: blur(100px);
     mask-image: linear-gradient(to top, black 40%, transparent 90%);
   }
   
   .overview .logo {
-    position: absolute;
+    /* position: absolute; */
     width: 331px;
     height: 69px;
-    top: 69px;
-    left: 81px;
+    /* top: 69px;
+    left: 81px; */
   }
   
   /* Top Left Logo */
@@ -93,11 +93,11 @@
   
   /* NESTwork Text */
   .overview .NESTwork {
-    position: absolute;
+    /* position: absolute; */
     width: 246px;
     height: 69px;
-    top: -25px;
-    left: 85px;
+    /* top: -25px;
+    left: 85px; */
     font-family: "Lato", Helvetica;
     font-weight: 400;
     color: transparent;
@@ -116,11 +116,11 @@
   }
   
   .overview .vector {
-    position: absolute;
+    /* position: absolute; */
     width: 63px;
     height: 63px;
-    top: 3px;
-    left: 0;
+    /* top: 3px;
+    left: 0; */
   }
   
   .overview .navigation-bar {
@@ -130,10 +130,10 @@
   }
   
   .overview .text-wrapper-2 {
-    position: absolute;
+    /* position: absolute; */
     height: 40px;
-    top: 0;
-    left: 19px;
+    /* top: 0;
+    left: 19px; */
     font-family: "Futura PT-HeavyOblique", Helvetica;
     font-weight: 400;
     color: #ffffff;
@@ -145,10 +145,10 @@
   }
   
   .overview .text-wrapper-3 {
-    position: absolute;
+    /* position: absolute; */
     height: 40px;
-    top: 0;
-    left: 417px;
+    /* top: 0;
+    left: 417px; */
     opacity: 0.5;
     font-family: "Futura PT-HeavyOblique", Helvetica;
     font-weight: 400;
@@ -198,18 +198,17 @@
   
   /* Intern Pool Big Box */
   .left-side {
-    width: 763px;
-    height: 585px;
-    top: 189px;
-    left: 73px;
+    width: 50%;
+    height: 60%;
+    /* top: 189px;
+    left: 7%; */
     background-color: #151515;
     border: 1px solid;
     border-color: #646464;
-    position: absolute;
+    /* position: absolute; */
     border-radius: 15px;
     box-shadow: 0px 4px 4px #2120201a;
     padding: 20px;
-    margin-right: 50px;
   }
   
   .left-side h1 {
@@ -296,7 +295,7 @@
   tbody {
     display: block;
     max-height: 250px;
-    width: 763px;
+    width: 400%;
     overflow-y: auto;
     background-color: #1e1e1e;
   }
@@ -336,11 +335,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
     box-sizing: border-box;
-    position: absolute; /* Now it's positioned relative to .intern-box */
-    bottom: 0; /* This positions it at the bottom of the intern box */
+    /* position: absolute; 
+    bottom: 0; 
     left: 0;
-    right: 0;
+    right: 0; */
     padding: 20px; /* Add padding for spacing */
   }
   
@@ -399,11 +399,11 @@
   
   /* Pairing Big Box */
   .right-side .pairing-box {
-    position: absolute;
-    width: 431px;
-    height: 596px;
-    top: 188px;
-    left: 900px;
+    /* position: absolute; */
+    width: 100%;
+    height: 61%;
+    /* top: 188px;
+    left: 65%; */
     background-color: #151515;
     border-radius: 15px;
     border: 1px solid;
@@ -453,6 +453,7 @@
   }
   
   .pairing-list {
+    height: 100%;
     max-height: 430px;
     overflow-y: auto;
     padding-bottom: 10px;
@@ -499,15 +500,16 @@
   /* container for generate and toggle button */
   .pairing-actions {
     display: flex;
-    justify-content: space-between; /* This already pushes the buttons to the sides */
+    justify-content: space-between; 
     align-items: center;
     padding: 10px 20px;
-    position: absolute;
-    bottom: 10px; /* Position it at the bottom */
+    /* position: absolute;
+    bottom: 10px; 
     left: 0;
-    right: 0;
-    margin-top: 10px; /* Adjust or remove if not needed */
+    right: 0; */
+    margin-top: 10px; 
     width: 100%; /* Takes full width */
+    /* height: 863px; */
     box-sizing: border-box;
   }
   
@@ -515,7 +517,7 @@
     background-color: #38a169;
     color: white;
     border: none;
-    padding: 12px 25px;
+    padding: 10px 20px;
     border-radius: 30px;
     cursor: pointer;
     font-size: 16px;
@@ -529,7 +531,7 @@
     background-color: #38a169;
     color: white;
     border: none;
-    padding: 12px 25px;
+    padding: 10px 20px;
     border-radius: 30px;
     cursor: pointer;
     font-size: 16px;
@@ -544,17 +546,15 @@
 
   .toggle-pairing-filter {
     display: none; /* Hidden by default */
-    position: absolute; /* Position it relative to the pairing actions */
+    position: absolute; 
     border: 1px solid #ccc;
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
     z-index: 1;
-    margin-top: 5px; /* Add some space above */
+    /* margin-top: 400px; */
     border: none;
-  
-    /* new */
-    bottom: 82%;
-    left: 10px;
-    margin-bottom: 2px;
+    /* bottom: 1px; */
+    /* left: 10px;  */
+    margin-bottom: 6.5%;
   }
   
   .toggle-pairing-filter button {
@@ -631,7 +631,7 @@
     justify-content: space-between;
 }
 
-.tutorial-button {
+.tutorial-button { 
   width: 33px;
   height: 33px;
   border-radius: 50%;
@@ -644,3 +644,8 @@
     cursor: pointer
 }
 
+.left-right-container{
+  display: flex;
+  justify-content: space-evenly;
+  height: 1000px;
+}

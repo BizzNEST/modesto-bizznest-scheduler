@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Intern Pool</title>
     <link rel="stylesheet" href="src/stylesheets/style.css" />
+    <link rel="stylesheet" href="src/stylesheets/mobile-overview-style.css"/>
     <!-- for Icons -->
     <link
       rel="stylesheet"
@@ -44,65 +45,65 @@
               Results
             </button>
           </div>
-
+          <div class="left-right-container">
           <div class="left-side">
             <!-- 'left side' is the left big box ;intern pool box-->
-            <div class="intern-pool-container">
-                <h1>Intern Pool</h1>
-                <button id="openModalBtn" class="tutorial-button">?</button>
-            </div>
-            <div class="filters">
-              <div class="filter-group">
-                <label>Location:</label>
-                <div class="filter-buttons" id="location-filters">
-                  <button data-location="Gilroy">Gilroy</button>
-                  <button data-location="Modesto">Modesto</button>
-                  <button data-location="Salinas">Salinas</button>
-                  <button data-location="Stockton">Stockton</button>
-                  <button data-location="Watsonville">Watsonville</button>
+              <div class="intern-pool-container">
+                  <h1>Intern Pool</h1>
+                  <button id="openModalBtn" class="tutorial-button">?</button>
+              </div>
+              <div class="filters">
+                <div class="filter-group">
+                  <label>Location:</label>
+                  <div class="filter-buttons" id="location-filters">
+                    <button data-location="Gilroy">Gilroy</button>
+                    <button data-location="Modesto">Modesto</button>
+                    <button data-location="Salinas">Salinas</button>
+                    <button data-location="Stockton">Stockton</button>
+                    <button data-location="Watsonville">Watsonville</button>
+                  </div>
+                </div>
+                <div class="filter-group">
+                  <label>Department:</label>
+                  <div class="filter-buttons" id="department-filters">
+                    <button data-department="Video">Video Production</button>
+                    <button data-department="Design">Design</button>
+                    <button data-department="Web Development">
+                      Web Development
+                    </button>
+                    <button data-department="Marketing">Marketing</button>
+                    <button data-department="Staff">Staff</button>
+                  </div>
                 </div>
               </div>
-              <div class="filter-group">
-                <label>Department:</label>
-                <div class="filter-buttons" id="department-filters">
-                  <button data-department="Video">Video Production</button>
-                  <button data-department="Design">Design</button>
-                  <button data-department="Web Development">
-                    Web Development
+
+              <table>
+                <thead>
+                  <tr>
+                    <th>NAME</th>
+                    <th>DEPARTMENT</th>
+                    <th>LOCATION</th>
+                    <th>SELECT</th>
+                  </tr>
+                </thead>
+                <tbody id="intern-tbody">
+                  <!-- Intern rows will be dynamically added here -->
+                </tbody>
+              </table>
+
+              <div class="search-and-buttons">
+                <div class="search-bar">
+                  <input type="text" id="search" placeholder="Search" />
+                  <button id="search-button">
+                    <i class="fas fa-search"></i>
                   </button>
-                  <button data-department="Marketing">Marketing</button>
-                  <button data-department="Staff">Staff</button>
+                </div>
+                <div class="buttons">
+                  <button id="select-all">Select All</button>
+                  <button id="deselect-all">Deselect All</button>
                 </div>
               </div>
             </div>
-
-            <table>
-              <thead>
-                <tr>
-                  <th>NAME</th>
-                  <th>DEPARTMENT</th>
-                  <th>LOCATION</th>
-                  <th>SELECT</th>
-                </tr>
-              </thead>
-              <tbody id="intern-tbody">
-                <!-- Intern rows will be dynamically added here -->
-              </tbody>
-            </table>
-
-            <div class="search-and-buttons">
-              <div class="search-bar">
-                <input type="text" id="search" placeholder="Search" />
-                <button id="search-button">
-                  <i class="fas fa-search"></i>
-                </button>
-              </div>
-              <div class="buttons">
-                <button id="select-all">Select All</button>
-                <button id="deselect-all">Deselect All</button>
-              </div>
-            </div>
-          </div>
 
           <div class="right-side">
             <div class="pairing-box">
@@ -133,6 +134,7 @@
               </button>
             </div>
           </div>
+        </div>
 
           <div class="footer">
             <div class="footer-text">Powered by</div>
