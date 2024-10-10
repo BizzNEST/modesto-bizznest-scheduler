@@ -14,6 +14,11 @@ document.addEventListener("DOMContentLoaded", () => {
             displayInterns(internPairs, storedUnpaired); // Display interns directly without shuffling
         }}
 
+        const backButton = document.getElementById('back-button');
+            backButton.addEventListener('click', function() {
+                window.history.back();
+            });
+
         // Call this function to display the pairs
     function displayInterns(pairs, unpaired) {
         const container = document.getElementById('results-list');
@@ -406,9 +411,11 @@ document.addEventListener("DOMContentLoaded", () => {
         let remove_buttons_elements = get_all_remove_buttons()
         for (let element of add_button_elements) {
             element.style.visibility = "hidden";
+            // element.style.position = "absolute";
             }
         for (let element of remove_buttons_elements) {
             element.style.visibility = "hidden";
+            // element.style.position = "absolute" 
             }
         edit_mode_state = false;
         }
