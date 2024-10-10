@@ -209,7 +209,6 @@
     border-radius: 15px;
     box-shadow: 0px 4px 4px #2120201a;
     padding: 20px;
-   
   }
   
   .left-side h1 {
@@ -516,7 +515,7 @@
     background-color: #38a169;
     color: white;
     border: none;
-    padding: 12px 25px;
+    padding: 10px 20px;
     border-radius: 30px;
     cursor: pointer;
     font-size: 16px;
@@ -530,7 +529,7 @@
     background-color: #38a169;
     color: white;
     border: none;
-    padding: 12px 25px;
+    padding: 10px 20px;
     border-radius: 30px;
     cursor: pointer;
     font-size: 16px;
@@ -632,7 +631,7 @@
     justify-content: space-between;
 }
 
-.tutorial-button {
+.tutorial-button { 
   width: 33px;
   height: 33px;
   border-radius: 50%;
@@ -645,3 +644,7 @@
     cursor: pointer
 }
 
+.left-right-container{
+  display: flex;
+  
+}
