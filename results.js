@@ -452,8 +452,6 @@ document.addEventListener("DOMContentLoaded", () => {
         remove_button_parent = button.target.id;
         let intern_in_pair_info = get_intern_in_pair(internPairs, remove_button_parent);
         let unpaired_intern_info = get_unpaired_intern(unpairedInterns ,remove_button_parent)
-        console.log(intern_in_pair_info);
-        //console.log(unpaired_intern_info);
         let added_intern = undefined;
         if(unpaired_intern_info){
             added_intern = remove_unpaired_intern(unpaired_intern_info[1]);
@@ -462,18 +460,11 @@ document.addEventListener("DOMContentLoaded", () => {
         if(intern_in_pair_info){
             added_intern = remove_intern_from_pair(intern_in_pair_info[1], intern_in_pair_info[2]);
             let pair = internPairs[intern_in_pair_info[1]]  //we can loop through internPairs check the length of arrays and if 
-            //console.log(pair);
-            //console.log(pair[0])
-            //remove_intern_from_pair(intern_in_pair_info[1], 0);
-            //unpairedInterns.push(pair[0]);
-            /*if(pair.length <= 1){
-                //console.log(remove_unpaired_intern(pair[0]));
-                //unpairedInterns.push(remove_unpaired_intern(pair[0]))
-                //unpairedInterns.push(remove_intern_from_pair(unpaired_intern_info[1],0))
-            }*/
-            //console.log(unpairedInterns);
-            //console.log(added_intern);
-
+            //if pair has only one person it will be moved to unpaired.
+            if(pair.length <= 1){
+                unpairedInterns.push(pair[0]);
+                internPairs.splice(intern_in_pair_info[1], 1);
+            }
         }
         displayInterns(internPairs, unpairedInterns);
         removedInterns.push(added_intern);
