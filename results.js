@@ -14,6 +14,11 @@ document.addEventListener("DOMContentLoaded", () => {
             displayInterns(internPairs, storedUnpaired); // Display interns directly without shuffling
         }}
 
+        const backButton = document.getElementById('back-button');
+            backButton.addEventListener('click', function() {
+                window.history.back();
+            });
+
         // Call this function to display the pairs
     function displayInterns(pairs, unpaired) {
         const container = document.getElementById('results-list');
