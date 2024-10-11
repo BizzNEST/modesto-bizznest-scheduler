@@ -168,16 +168,24 @@ body {
         box-shadow:                #1ab66d 0px 0px 0px;
         }
     70% {
-        border-radius:               10px;
         scale:                       1.1;
-        box-shadow:                #79C8A3 0px 0px 20px;
+        box-shadow:                #79C8A3 0px 0px 4px;
         }
     100%{
-        scale: 0.5;
         background:                  linear-gradient(190deg, #79C8A3, #3B6250);
 
         }
 }
+
+@keyframes hover_anim_tab {
+    0%  {
+        max-width: 20%;
+        }
+    100%{
+        max-width: 100%;
+        }
+}
+
 :root {
     --button_size:                   25px
 }
@@ -240,9 +248,8 @@ body {
     display:                        flex;
     flex-direction:                 column;
     position:                       fixed;
-    top:                            20%;
+    top:                            10%;
     width:                          50%;
-    height:                         50%;
     background-color:              #151515;
     border-radius:                  30px;
     padding:                        3%;
@@ -251,17 +258,13 @@ body {
 
 .edit-window-header{
     display:                        flex;
-    justify-content:                left;
+    justify-content:                center;
     align-items:                    center;
-    background-color:              #333;
-    padding:                        10px;
+    padding-bottom:                 10px;
     height:                         40px;
     border-radius:                  10px;
 }
 
-.edit-window-header h1{
-    padding-left:                   2%;
-}
 
 .edit-window-header img{
     margin-left: 10px;
@@ -284,7 +287,7 @@ body {
 
 #edit-search-bar:focus{
     outline:                        3px solid #3B6250;
-    border-radius: 10px 10px 0px 0px;
+    border-radius:                  10px 10px 0px 0px;
 }
 
 .edit-window hr {
@@ -320,14 +323,16 @@ body {
     background-color:              #151515;
     border-top:                     4px solid#3B6250;
     background-color:              #333;
+    box-shadow:                     0px 30px 40px 4px black ;
 }
 
 .intern-card{
     text-align:                     left;
+    white-space:                    nowrap;
     display:                        flex;
 }
 
-.intern-card:nth-of-type(2){
+.intern-card:nth-of-type(odd){
    background-color:               #292929 ;
 }
 
@@ -351,17 +356,81 @@ body {
     border:                         1px solid #151515;
     }
 
+.tab-container{
+    display:                        flex;
+    margin-top:                     10px;
+    margin-bottom:                  2px;
+    justify-content:                left;
 
-.unpaired-results{
-    margin-left:                    -3px;
-    margin-top:                     3px;
-    width:                          87%;
-    visibility:                     collapse;
-    overflow:                       scroll;
-    background-color:              #151515;
-    border-top:                     4px solid#3B6250;
-    border-bottom:                     4px solid#3B6250;
-    background-color:              #333;
 }
 
+.tab-button{
+    background-color:             #3B6250;
+    font-weight:                    800;
+    padding:                        10px;
+    font-size:                      large;
+    border:                       #3B6250 solid 1px; 
+    border-radius:                  10px 10px 0px 0px;
+    max-height:                     40px; 
+    max-width:                      100%;
+    white-space:                    nowrap;
+    overflow:                       hidden;
+    }
+    
+.tab-button:hover{
+    background-color:             #43755e;
+    max-width:                      100%;
+    }
+    
+.tab-button:nth-of-type(odd){
+    background-color:             #385949;
+    border:                       #35493f solid 1px; 
+    max-width:                      100%;
+
+    }
+
+.unpaired-results{
+    width:                          87%;
+    max-height:                     200px;
+    visibility:                     none;
+    overflow:                       scroll;
+    border-radius:                  0px 0px 10px 10px;
+    background-color:             #333;
+}
+
+.recent-results{
+    width:                          87%;
+    visibility:                     none;
+    overflow:                       scroll;
+    border-radius:                  0px 0px 10px 10px;
+    background-color:             #333;
+}
+
+
 /*Make Changes for mobile*/
+@media only screen and (max-width: 600px) {
+    .edit-window {
+      width:                        90%;
+      top:                          10px;
+      height:                       80%;
+      }
+
+    .unpaired-results {
+        width:                      100%;
+      }
+    .recent-results {
+        width:                      100%;
+    }
+
+    .intern-card{
+        justify-content:            space-around;
+      }
+
+    .intern-card hr{
+        display:                    none;
+      }
+    .intern-card p{
+    padding:                        auto 0px;
+    white-space:                    wrap;
+      }
+    }

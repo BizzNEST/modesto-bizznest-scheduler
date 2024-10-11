@@ -83,7 +83,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let add_button_parent = undefined;
     let edit_mode_state = false
     let removedInterns = []
-    
+    let curr_open_tab = undefined;
+
     function load_intern_data(){
         const storedinterData = JSON.parse(sessionStorage.getItem('internData')) || [];
         internData = storedinterData;
@@ -100,8 +101,45 @@ document.addEventListener("DOMContentLoaded", () => {
         let seach_bar = document.getElementById("edit-search-bar");
             seach_bar.addEventListener("input",on_type)
             seach_bar.addEventListener("blur",on_blur)
-        };
+        
+        let unpaired_tab = document.getElementById("unpaired-tab")
+        unpaired_tab.addEventListener("click",on_unpaired_tab_click)
+        
+        let recently_removed_tab = document.getElementById("recently-removed-tab")
+        recently_removed_tab.addEventListener("click",on_recently_removed_tab_click)
+
+        let recently_removed = document.querySelector(".recent-results")
+        recently_removed.style.visibility = "none";
+    }
+
+    function on_unpaired_tab_click(){
+        let unpaired_results_container = document.querySelector(".unpaired-results");
+        open_tab(unpaired_results_container)
+        }
     
+    function on_recently_removed_tab_click(){
+        let recent_results_container = document.querySelector(".recent-results");
+        open_tab(recent_results_container)
+        }   
+
+    function open_tab(tab_page) {
+        if (curr_open_tab !== undefined) {
+            close_tab(curr_open_tab);
+        }
+        curr_open_tab = tab_page;
+        if (tab_page.childElementCount === 0){
+            tab_page.style.height = "50px"
+            }
+        tab_page.style.display = "block"; // Use block to show the tab
+        tab_page.style.borderBottom = "4px solid #3B6250";
+        tab_page.style.borderTop = "4px solid #3B6250";
+    }
+    
+    function close_tab(tab_page) {
+        tab_page.style.display = "none"; // Use none to hide the tab
+        tab_page.style.height = "none";
+    }
+        
     function on_type() {
         let search_result_container = document.querySelector(".search-results-container");
         search_result_container.style.visibility = "visible";
@@ -292,21 +330,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function close_edit_window(){
+        close_tab(curr_open_tab);
         let edit_window = document.querySelector(".edit-window")
         edit_window.style.visibility = "hidden";
         let search_result_container = document.querySelector(".search-results-container")
         search_result_container.style.visibility = "collapse"
-        let edit_window_unpaired_container = document.querySelector(".unpaired-results")
-        edit_window_unpaired_container.style.visibility = "collapse";
         }
 
     function open_edit_window() {
         let edit_window = document.querySelector(".edit-window")
         edit_window.style.visibility = "visible";
-        let edit_window_unpaired_container = document.querySelector(".unpaired-results")
-        edit_window_unpaired_container.style.visibility = "visible";
+
+        let unpaired_results_container = document.querySelector(".unpaired-results");
         populate_unpaired_interns()
         populate_recently_removed()
+        open_tab(unpaired_results_container)
     }
 
     function populate_unpaired_interns(){
@@ -428,7 +466,6 @@ document.addEventListener("DOMContentLoaded", () => {
     function get_all_remove_buttons(){
         return document.querySelectorAll(".remove-button");
         }
-
     //On Button Click
     //add a pop up seachbar
     //Add All Previously Remove.
