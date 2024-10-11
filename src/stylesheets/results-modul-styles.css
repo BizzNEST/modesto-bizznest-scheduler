@@ -244,8 +244,9 @@
 
 .recent-results{
     width: 100%;
+    min-height: 50px;
     max-height: 200px;
-    visibility: none;
+    visibility: hidden;
     overflow: scroll;
     border-radius: 0px 0px 10px 10px;
     background-color: #333;
@@ -260,8 +261,8 @@
 /*Make Changes for mobile*/
 @media only screen and (max-width: 600px) {
     .edit-window {
-      width: 90%;
       top: 10px;
+      width: 100%;
       }
 
     .unpaired-results {
@@ -272,7 +273,7 @@
     }
 
     .intern-card{
-        justify-content: space-around;
+        align-items: center;
       }
 
     .intern-card hr{
@@ -281,7 +282,11 @@
     .intern-card p{
     padding: auto 0px;
     white-space: wrap;
+    margin-left: 0px;
       }
+    .intern-card p:first-of-type{
+    margin-left: 4px;
+        }
     }
 
 .mobile-back-button {
@@ -303,6 +308,8 @@
 
     .intern-card{
         justify-content: space-around;
+        height: 50px;
+        align-items: center;
       }
 
     .intern-card p{
