@@ -150,13 +150,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         curr_open_tab = tab_page;
 
-        if (tab_page.childElementCount <= 1){
+        if (tab_page.childElementCount === 0){
             tab_page.style.height = "50px"
             }
-        else if(tab_page.childElementCount >= 2){
-            tab_page.style.height = "inherit";
-            }   // For Inherited Height 
-
+        
+        tab_page.style.height = "none"
         tab_page.style.display = "block"; // Use block to show the tab
         tab_page.style.borderBottom = "4px solid #3B6250";
         tab_page.style.borderTop = "4px solid #3B6250";

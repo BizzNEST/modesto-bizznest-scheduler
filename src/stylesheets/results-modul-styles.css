@@ -160,9 +160,14 @@
     overflow: scroll;
     border-radius: 0px 0px 20px 20px;
     background-color: #151515;
-    border-top: px solid#3B6250;
+    border-top: 4px solid#3B6250;
     background-color: #333;
     box-shadow: 0px 30px 40px 4px black ;
+    scrollbar-width: none;
+}
+
+.search-results-container::-webkit-scrollbar{
+    visibility: hidden;
 }
 
 .intern-card{
@@ -231,6 +236,10 @@
     overflow: scroll;
     border-radius: 0px 0px 10px 10px;
     background-color: #333;
+    scrollbar-width: none;
+}
+.unpaired-results::-webkit-scrollbar{
+    visibility: hidden;
 }
 
 .recent-results{
@@ -240,6 +249,11 @@
     overflow: scroll;
     border-radius: 0px 0px 10px 10px;
     background-color: #333;
+    scrollbar-width: none;
+}
+.recent-results::-webkit-scrollbar
+{
+    visibility: hidden;
 }
 
 
@@ -281,7 +295,7 @@
       }
 
     .unpaired-results {
-        width: 00%;
+        width: 100%;
       }
     .recent-results {
         width: 100%;
