@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-     <script src="./script.js"></script> <!-- Ensure this points to the correct file -->
    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Intern Pool</title>
+    <title>NESTwork</title>
     <link rel="stylesheet" href="src/stylesheets/style.css" />
     <!-- for Icons -->
     <link
@@ -13,143 +12,143 @@
     />
   </head>
   <body>
-    <div class="overview">
-      <div class="div">
-        <div class="overlap">
-          <img class="logo-background" src="src/images/background-logo.png" />
-          <div class="blur-fade"></div>
-          <!-- blur effect on top-->
-          <div class="blur-fade-2"></div>
-          <!-- blur effect on bottom-->
-          <div class="logo">
-            <p class="NESTwork">
-              <span class="text-wrapper">NEST</span
-              ><span class="span">work</span>
-            </p>
-            <img class="vector" src="src/images/logo.png" alt="NEST logo" />
-          </div>
-
-          <!-- Navigation Bar with Buttons -->
-          <div class="navigation-bar">
-            <button
-              class="nav-button active"
-              onclick="window.location.href='index.html'"
-            >
-              Overview
-            </button>
-            <button
-              class="nav-button inactive"
-              onclick="window.location.href='results.html'"
-            >
-              Results
-            </button>
-          </div>
-
-          <div class="left-side">
-            <!-- 'left side' is the left big box ;intern pool box-->
-            <div class="intern-pool-container">
-                <h1>Intern Pool</h1>
-                <button id="openModalBtn" class="tutorial-button">?</button>
-            </div>
-            <div class="filters">
-              <div class="filter-group">
-                <label>Location:</label>
-                <div class="filter-buttons" id="location-filters">
-                  <button data-location="Gilroy">Gilroy</button>
-                  <button data-location="Modesto">Modesto</button>
-                  <button data-location="Salinas">Salinas</button>
-                  <button data-location="Stockton">Stockton</button>
-                  <button data-location="Watsonville">Watsonville</button>
-                </div>
-              </div>
-              <div class="filter-group">
-                <label>Department:</label>
-                <div class="filter-buttons" id="department-filters">
-                  <button data-department="Video">Video Production</button>
-                  <button data-department="Design">Design</button>
-                  <button data-department="Web Development">
-                    Web Development
-                  </button>
-                  <button data-department="Marketing">Marketing</button>
-                  <button data-department="Staff">Staff</button>
-                </div>
-              </div>
+    <img class="logo-background" src="src/images/background-logo.png" />
+    <header>
+      <div class="header-div">
+        <div class="blur-fade"></div> <!-- blur effect on top-->
+            <div class="logo">
+              <img class="vector" src="src/images/logo.png" alt="NEST logo" />
+              <p class="NESTwork">
+                <span class="text-wrapper">NEST</span
+                ><span class="span">work</span>
+              </p>
             </div>
 
-            <table>
-              <thead>
-                <tr>
-                  <th>NAME</th>
-                  <th>DEPARTMENT</th>
-                  <th>LOCATION</th>
-                  <th>SELECT</th>
-                </tr>
-              </thead>
-              <tbody id="intern-tbody">
-                <!-- Intern rows will be dynamically added here -->
-              </tbody>
-            </table>
-
-            <div class="search-and-buttons">
-              <div class="search-bar">
-                <input type="text" id="search" placeholder="Search" />
-                <button id="search-button">
-                  <i class="fas fa-search"></i>
-                </button>
-              </div>
-              <div class="buttons">
-                <button id="select-all">Select All</button>
-                <button id="deselect-all">Deselect All</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="right-side">
-            <div class="pairing-box">
-              <div class="pairing-header">
-                <h2>Pairings</h2>
-              </div>
-              <div>
-                <div class="pairing-controls">
-                  <button id="clear-all">Clear All</button>
-                  <span id="total-pairings">0 Total</span>
-                </div>
-              </div>
-              <div class="pairing-list">
-                <ul id="pairings-list">
-                  <!-- Paired interns will be dynamically added here -->
-                </ul>
-              </div>
-              <div class="pairing-actions">
-                <button id="green-button" class="green-button"> Pair by
-                  <!-- <i class="fas fa-users"></i> -->
-                </button>
-                <div id="toggle-pairing-filter" class="toggle-pairing-filter" style="display: none;">
-            <button> same Location</button>
-            <button> same Department</button>
-                 </div>
-              <button id="generate-pairing" class="generate-button">
-                Generate Pairing
+            <!-- Navigation Bar with Buttons -->
+            <div class="navigation-bar">
+              <button
+                class="nav-button active"
+                onclick="window.location.href='index.html'">Overview</button>
+              <button
+                class="nav-button inactive"
+                onclick="window.location.href='results.html'">Results
               </button>
             </div>
+      </div>
+    </header>
+    <main>
+      <div class="overview">
+        <div class="left-side">
+          <!-- 'left side' is the left big box ;intern pool box-->
+          <div class="intern-pool-container">
+              <h1>Intern Pool</h1>
+              <button id="openModalBtn" class="tutorial-button">?</button>
+          </div>
+          <div class="filters">
+            <div class="filter-group">
+              <label>Location:</label>
+              <div class="filter-buttons" id="location-filters">
+                <button data-location="Gilroy">Gilroy</button>
+                <button data-location="Modesto">Modesto</button>
+                <button data-location="Salinas">Salinas</button>
+                <button data-location="Stockton">Stockton</button>
+                <button data-location="Watsonville">Watsonville</button>
+              </div>
+            </div>
+            <div class="filter-group">
+              <label>Department:</label>
+              <div class="filter-buttons" id="department-filters">
+                <button data-department="Video">Video Production</button>
+                <button data-department="Design">Design</button>
+                <button data-department="Web Development">
+                  Web Development
+                </button>
+                <button data-department="Marketing">Marketing</button>
+                <button data-department="IT">IT</button>
+              </div>
+            </div>
           </div>
 
-          <div class="footer">
-            <div class="footer-text">Powered by</div>
-            <img class="footer-logo" src="src/images/bottom-logo.png" />
+          <table>
+            <thead>
+              <tr>
+                <th>NAME</th>
+                <th>DEPARTMENT</th>
+                <th>LOCATION</th>
+                <th>SELECT</th>
+              </tr>
+            </thead>
+            <tbody id="intern-tbody">
+              <!-- Intern rows will be dynamically added here -->
+            </tbody>
+          </table>
+          <div class="search-and-buttons">
+            <div class="search-bar">
+              <input type="text" id="search" placeholder="Search" />
+              <button id="search-button">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+            <div class="buttons">
+              <button id="select-all">Select All</button>
+              <button id="deselect-all">Deselect All</button>
+            </div>
+          </div>
+        </div> <!--Left side end-->
+
+        <div class="right-side">
+          <div class="pairing-box">
+            <div class="pairing-header">
+              <h2>Pairings</h2>
+            </div>
+            <div>
+              <div class="pairing-controls">
+                <button id="clear-all">Clear All</button>
+                <span id="total-pairings">0 Total</span>
+              </div>
+            </div>
+            <div class="pairing-list">
+              <ul id="pairings-list">
+                <!-- Paired interns will be dynamically added here -->
+              </ul>
+            </div>
+            <div class="pairing-actions">
+              <button id="green-button" class="green-button"> Pair by </button>
+              <div id="toggle-pairing-filter" class="toggle-pairing-filter" style="display: none;">
+          <button> Same Location</button>
+          <button> Same Department</button>
+               </div>
+            <button id="generate-pairing" class="generate-button">
+              Generate Pairing
+            </button>
           </div>
         </div>
+    </div> <!--Right-side end -->
+    
       </div>
+    </main>
+     
+
+      <div class="blur-fade-2"></div> <!-- blur effect on bottom-->
+
+    
 
       <div id="tutorial-modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <img class="tutorial-image" src = "/src/images/tutorial.png">
+            <img class="tutorial-image" src="src/images/tutorial.png">
         </div>
       </div>
 
       <!-- Only load script.js, since it imports json_convert.js -->
       <script type="module" src="script.js"></script>
-    </div>
+    </div> 
+    <footer>
+      <div class="footer">
+        <div class="footer-text">Powered by</div>
+        <img class="footer-logo" src="src/images/bottom-logo.png" />
+      </div>
+    </footer>
   </body>
+
 </html>

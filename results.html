@@ -14,76 +14,88 @@
    <script type="module" src="results.js"></script>
 </head>
 <body>
-<div class="overview">
-   <div class="div">
-    <div class="overlap">
-        <img class="logo-background" src="src/images/background-logo.png" />
-        <div class="blur-fade"></div> <!-- blur effect on top-->
-        <div class="blur-fade-2"></div> <!-- blur effect on bottom-->
-        <div class="logo">
-          <p class="NESTwork"><span class="text-wrapper">NEST</span><span class="span">work</span></p>
-          <img class="vector" src="src/images/Logo.png" alt="NEST logo" />
-        </div>
+    <img class="logo-background" src="src/images/background-logo.png" />
+    <header>
+      <div class="header-div">
+         <div class="blur-fade"></div> <!-- blur effect on top--> 
+            <div class="logo">
+              <img class="vector" src="src/images/logo.png" alt="NEST logo" />
+              <p class="NESTwork">
+                <span class="text-wrapper">NEST</span
+                ><span class="span">work</span>
+              </p>
+            </div>
 
-        <!-- Navigation Bar with Buttons -->
-        <div class="navigation-bar">
-          <button class="nav-button inactive" onclick="window.location.href='index.html'">Overview</button>
-          <button class="nav-button active" onclick="window.location.href='results.html'">Results</button>
-        </div>
+            <!-- Navigation Bar with Buttons -->
+            <div class="navigation-bar">
+              <button
+                class="nav-button inactive"
+                onclick="window.location.href='index.html'">Overview</button>
+              <button
+                class="nav-button active"
+                onclick="window.location.href='results.html'">Results
+              </button>
+            </div>
+      </div>
+    </header>
+    <main>
         <div class="main-content">
-          <button id="back-button" class="mobile-back-button">Back</button>
-          <div class="results">
-              <div class="intern-headers">
-                <button class="invisible-green-button"></button>
-                  <div class="intern-heading-container">
-                      <div class="intern-heading">Name</div>
-                  </div>
-                  <div class="intern-heading-container">
-                      <div class="intern-heading">Location</div>
-                  </div>
-                  <div class="intern-heading-container">
-                      <div class="intern-heading">Department</div>
-                  </div>
-                <button class="invisible-red-button"></button>
-              </div>
-              <div class="intern-pairings-container">
-                  <div id="results-list" class="results-list"></div>
-              </div>
-          
-          <div class="result-buttons">
-              <div class="save-edit-buttons">
-                  <button class="save-button" id="save-button">Save</button>
-                  <button class="edit-button" id="edit-button">Edit</button>
-              </div>
-              <button id="download-csv-button" class="download-pdf-button">Download CSV</button>
-          </div>   
+            <button id="back-button" class="mobile-back-button">Back</button>
+            <div class="results">
+                <div class="intern-headers">
+                  <button class="invisible-green-button"></button>
+                    <div class="intern-heading-container">
+                        <div class="intern-heading">Name</div>
+                    </div>
+                    <div class="intern-heading-container">
+                        <div class="intern-heading">Location</div>
+                    </div>
+                    <div class="intern-heading-container">
+                        <div class="intern-heading">Department</div>
+                    </div>
+                  <button class="invisible-red-button"></button>
+                </div>
+                <div class="intern-pairings-container">
+                    <div id="results-list" class="results-list"></div>
+                </div>
+            
+            <div class="result-buttons">
+                <div class="save-edit-buttons">
+                    <button class="save-button" id="save-button">Save</button>
+                    <button class="edit-button" id="edit-button">Edit</button>
+                </div>
+                <button id="download-csv-button" class="download-pdf-button">Download CSV</button>
+            </div>   
+            </div>
+        </div>
+         </div>
+     </div>
+     <div class="edit-window">
+      <div class="edit-window-header">
+          <h1>Add Intern</h1><img src="src/images/icons/edit_icon.svg">
+      </div>
+      <div class="edit-search-bar_container">
+          <input type="text" id="edit-search-bar" placeholder="Search" />
+          <div class="search-results-container">    
           </div>
+        </div>
+          <h4>Unpaired Interns</h4>
+          <div class="unpaired-results">
+          </div>
+          <h4>Recent</h4>
+          <div class="recent-results">
+          </div>
+          <div class="edit-window-footer" >
+              <button class="close-button">Close</button>
+          </div>
+     </div>
+  <!-- </div> -->
+    </main>
+    <footer>
+      <div class="footer">
+        <div class="footer-text">Powered by</div>
+        <img class="footer-logo" src="src/images/bottom-logo.png" />
       </div>
-           <div class="footer">
-               <div class="footer-text">Powered by</div> 
-               <img class="footer-logo" src="src/images/bottom-logo.png" />
-           </div>
-       </div>
-   </div>
-   <div class="edit-window">
-    <div class="edit-window-header">
-        <h1>Add Intern</h1><img src="src/images/icons/edit_icon.svg">
-    </div>
-    <div class="edit-search-bar_container">
-        <input type="text" id="edit-search-bar" placeholder="Search" />
-        <div class="search-results-container">    
-        </div>
-      </div>
-        <h4>Unpaired Interns</h4>
-        <div class="unpaired-results">
-        </div>
-        <h4>Recent</h4>
-        <div class="recent-results">
-        </div>
-        <div class="edit-window-footer" >
-            <button class="close-button">Close</button>
-        </div>
-   </div>
-<!-- </div> -->
-</body>
+    </footer>
+  </body>
 </html>
