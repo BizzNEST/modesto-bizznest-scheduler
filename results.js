@@ -92,9 +92,11 @@ document.addEventListener("DOMContentLoaded", () => {
     //Sets Up Window Functionality
     let card_hovering = false;
     let add_button_parent = undefined;
-    let remove_button_parent = undefined;
     let edit_mode_state = false;
     let removedInterns = [];
+    let curr_open_tab = undefined;
+    let remove_button_parent = undefined;
+    
     
     function load_intern_data(){
         const storedinterData = JSON.parse(sessionStorage.getItem('internData')) || [];
@@ -110,10 +112,59 @@ document.addEventListener("DOMContentLoaded", () => {
         
         //Seatchbar Setup
         let seach_bar = document.getElementById("edit-search-bar");
-            seach_bar.addEventListener("input",on_type);
-            seach_bar.addEventListener("blur",on_blur);
-        };
+            seach_bar.addEventListener("input",on_type)
+            seach_bar.addEventListener("blur",on_blur)
+        
+        let unpaired_tab = document.getElementById("unpaired-tab")
+        unpaired_tab.addEventListener("click",on_unpaired_tab_click)
+        
+        let recently_removed_tab = document.getElementById("recently-removed-tab")
+        recently_removed_tab.addEventListener("click",on_recently_removed_tab_click)
+
+        let recently_removed = document.querySelector(".recent-results")
+        recently_removed.style.visibility = "none";
+    }
+
+    function on_unpaired_tab_click(tab){
+        let other_tab = document.getElementById("recently-removed-tab");
+        other_tab.style.backgroundColor = "#3B6250";
+        tab.target.style.backgroundColor = "#378762";
+        let unpaired_results_container = document.querySelector(".unpaired-results");
+        open_tab(unpaired_results_container)
+        }
     
+    function on_recently_removed_tab_click(tab){
+        let other_tab = document.getElementById("unpaired-tab"); // Make dynamic if possible
+        other_tab.style.backgroundColor = "#3B6250";
+          tab.target.style.backgroundColor = "#378762";
+        let recent_results_container = document.querySelector(".recent-results");
+        open_tab(recent_results_container)
+        }   
+
+    function open_tab(tab_page) {
+        if (curr_open_tab !== undefined) {
+            close_tab(curr_open_tab);
+        }
+
+        let card_height = 50
+        let calculated_height = card_height * tab_page.childElementCount;
+
+    
+        curr_open_tab = tab_page;
+     
+        tab_page.style.height = `${Math.min(calculated_height, 300)}px`; 
+
+        tab_page.style.display = "block"; // Use block to show the tab
+        tab_page.style.visibility = "visible"
+        tab_page.style.borderBottom = "4px solid #3B6250";
+        tab_page.style.borderTop = "4px solid #3B6250";
+    }
+    
+    function close_tab(tab_page) {
+        tab_page.style.display = "none"; // Use none to hide the tab
+        tab_page.style.height = "none";
+    }
+        
     function on_type() {
         let search_result_container = document.querySelector(".search-results-container");
         search_result_container.style.visibility = "visible";
@@ -199,24 +250,32 @@ document.addEventListener("DOMContentLoaded", () => {
         if(intern_name===button_parent){
             return;
         }
+        console.log(intern_name)
         let added_intern = undefined;
         function remove_intern(){
             //IF its in paired interns
             let removed_intern_info = get_intern_in_pair(internPairs,intern_name)
             if(removed_intern_info){
                 added_intern = remove_intern_from_pair(removed_intern_info[1],removed_intern_info[2])
+                console.log(added_intern)
+                console.log("1")
                 return added_intern;
                 }   
             //If its in unpaired interns.         
             removed_intern_info = get_unpaired_intern(unpairedInterns,intern_name);
             if(removed_intern_info){
-                added_intern = remove_unpaired_intern(removed_intern_info[1])
+                added_intern = remove_unpaired_intern(unpairedInterns,removed_intern_info[1])
+                console.log(added_intern)
+                console.log("2")
                 return added_intern;
                 }
             //if its in removed interns
             removed_intern_info = get_unpaired_intern(removedInterns, intern_name);
+            console.log(removed_intern_info);
             if(removed_intern_info){
-                added_intern = remove_unpaired_intern(removed_intern_info[1]);
+                added_intern = remove_unpaired_intern(removedInterns,removed_intern_info[1]);
+                console.log(added_intern)
+                console.log("3")
                 return added_intern;
             }
         return (undefined);
@@ -298,8 +357,8 @@ document.addEventListener("DOMContentLoaded", () => {
         return removed_intern[0]
     }
 
-    function remove_unpaired_intern(intern_location){
-        let removed_intern = unpairedInterns.splice(intern_location,1)
+    function remove_unpaired_intern(intern_array,intern_location){
+        let removed_intern = intern_array.splice(intern_location,1)
         return removed_intern[0];
     }
 
@@ -312,21 +371,25 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function close_edit_window(){
+        close_tab(curr_open_tab);
         let edit_window = document.querySelector(".edit-window")
         edit_window.style.visibility = "hidden";
         let search_result_container = document.querySelector(".search-results-container")
         search_result_container.style.visibility = "collapse"
-        let edit_window_unpaired_container = document.querySelector(".unpaired-results")
-        edit_window_unpaired_container.style.visibility = "collapse";
         }
 
     function open_edit_window() {
         let edit_window = document.querySelector(".edit-window")
         edit_window.style.visibility = "visible";
-        let edit_window_unpaired_container = document.querySelector(".unpaired-results")
-        edit_window_unpaired_container.style.visibility = "visible";
+
+        let unpaired_results_container = document.querySelector(".unpaired-results");
         populate_unpaired_interns()
         populate_recently_removed()
+        setTimeout( () => open_tab(unpaired_results_container) , 1 );
+        let tab1 = document.getElementById("unpaired-tab");
+        let tab2 = document.getElementById("recently-removed-tab");
+        tab1.style.backgroundColor = "#378762";
+        tab2.style.backgroundColor = "#3B6250";
     }
 
     function populate_unpaired_interns(){
@@ -464,7 +527,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let unpaired_intern_info = get_unpaired_intern(unpairedInterns ,remove_button_parent)
         let added_intern = undefined;
         if(unpaired_intern_info){
-            added_intern = remove_unpaired_intern(unpaired_intern_info[1]);
+            added_intern = remove_unpaired_intern(unpairedInterns, unpaired_intern_info[1]);
             //console.log(added_intern);
         }
         if(intern_in_pair_info){
@@ -496,7 +559,6 @@ document.addEventListener("DOMContentLoaded", () => {
     function get_all_remove_buttons(){
         return document.querySelectorAll(".remove-button");
         }
-
     //On Button Click
     //add a pop up seachbar
     //Add All Previously Remove.
