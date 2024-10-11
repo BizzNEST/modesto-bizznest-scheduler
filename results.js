@@ -5,6 +5,9 @@ document.addEventListener("DOMContentLoaded", () => {
     let internPairs = []; 
     let unpairedInterns = [];
     let internData = undefined
+    let resultSaveButton = document.getElementById('save-button');
+    let resultEditButton = document.getElementById('edit-button');
+    let resultCSVButton = document.getElementById('download-csv-button');
     // Gets the data from sessionStorage   
     function loadInternPairs() {
         const storedPairs = JSON.parse(sessionStorage.getItem('internPairs')) || [];
@@ -80,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     //event listener for download csv
-    document.getElementById('download-csv-button').addEventListener('click', function () {
+    resultCSVButton.addEventListener('click', function () {
         generate_CSV.downloadCSV(generate_CSV.generateCSV(internPairs), 'intern_pairs.csv');
     });
 
@@ -89,15 +92,15 @@ document.addEventListener("DOMContentLoaded", () => {
     //Sets Up Window Functionality
     let card_hovering = false;
     let add_button_parent = undefined;
-    let remove_button_parent = undefined
-    let edit_mode_state = false
-    let removedInterns = []
+    let remove_button_parent = undefined;
+    let edit_mode_state = false;
+    let removedInterns = [];
     
     function load_intern_data(){
         const storedinterData = JSON.parse(sessionStorage.getItem('internData')) || [];
         internData = storedinterData;
         const storedUnpaired = JSON.parse(sessionStorage.getItem('unpairedInterns')) || [];
-        unpairedInterns = storedUnpaired
+        unpairedInterns = storedUnpaired;
         }
 
     function window_functionality_setup(){
@@ -107,8 +110,8 @@ document.addEventListener("DOMContentLoaded", () => {
         
         //Seatchbar Setup
         let seach_bar = document.getElementById("edit-search-bar");
-            seach_bar.addEventListener("input",on_type)
-            seach_bar.addEventListener("blur",on_blur)
+            seach_bar.addEventListener("input",on_type);
+            seach_bar.addEventListener("blur",on_blur);
         };
     
     function on_type() {
@@ -155,33 +158,34 @@ document.addEventListener("DOMContentLoaded", () => {
                             <p>${intern.location}</p>
                             </div>`
             html += interncard;
-            search_limit++
+            search_limit++;
             }
         //Asigns Event Listner
-        search_result_container.innerHTML = html
+        search_result_container.innerHTML = html;
         for(let child of search_result_container.childNodes){
-            let internName = child.firstChild.innerHTML
-            setup_card_event_listener(child)
+            let internName = child.firstChild.innerHTML;
+            setup_card_event_listener(child);
             }     
     }
 
     function setup_card_event_listener(card){
-        card.addEventListener("click",on_card_click,)
-        card.addEventListener("mouseover",on_card_hover,)
-        card.addEventListener("mouseout",on_card_leave,)
+        card.addEventListener("click",on_card_click,);
+        card.addEventListener("mouseover",on_card_hover,);
+        card.addEventListener("mouseout",on_card_leave,);
     }
 
     function remove_card_event_listener(card){
-        card.removeEventListener("click",on_card_click,)
-        card.removeEventListener("mouseover",on_card_hover,)
-        card.removeEventListener("mouseout",on_card_leave,)
+        card.removeEventListener("click",on_card_click,);
+        card.removeEventListener("mouseover",on_card_hover,);
+        card.removeEventListener("mouseout",on_card_leave,);
     }
 
     function on_card_click(card){
         //If Clicked On Text move refrence to div : Div contains id
         let clicked_card = card.target;
         if (clicked_card.tagName !== "DIV"){
-            clicked_card = clicked_card.parentNode}
+            clicked_card = clicked_card.parentNode;
+        }
         let added_intern_name = clicked_card.id;
         move_intern(added_intern_name,add_button_parent);
         close_edit_window();
@@ -193,7 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function move_intern(intern_name,button_parent){
         //Remove if intern is existing
         if(intern_name===button_parent){
-            return
+            return;
         }
         let added_intern = undefined;
         function remove_intern(){
@@ -217,14 +221,14 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         return (undefined);
         }
-        added_intern = remove_intern()
+        added_intern = remove_intern();
 
         //If not found in the pair page get it from intern data
         if (added_intern === undefined){
-            added_intern = internData.find(intern => intern.name === intern_name)
+            added_intern = internData.find(intern => intern.name === intern_name);
             }
         if (added_intern === undefined){
-            console.error("Intern Not Found: Cannot Pair Intern.")
+            console.error("Intern Not Found: Cannot Pair Intern.");
             }
 
         //If desired location is a pair add added intern 
@@ -232,16 +236,16 @@ document.addEventListener("DOMContentLoaded", () => {
         if (new_location_info !== undefined && new_location_info !== false){
             //Move To New location
             if(new_location_info[2] <= 0){
-                let pair_location = new_location_info[1]
-                internPairs[pair_location].splice(0,0,added_intern)
-                displayInterns(internPairs,unpairedInterns)
-                return
+                let pair_location = new_location_info[1];
+                internPairs[pair_location].splice(0,0,added_intern);
+                displayInterns(internPairs,unpairedInterns);
+                return;
                 }
 
-            let pair_location = new_location_info[1]
-            internPairs[pair_location].splice((new_location_info[0]-1),0,added_intern)
-            displayInterns(internPairs,unpairedInterns)
-            return
+            let pair_location = new_location_info[1];
+            internPairs[pair_location].splice((new_location_info[0]-1),0,added_intern);
+            displayInterns(internPairs,unpairedInterns);
+            return;
             
             }
         //If its a unpaired intern
@@ -249,13 +253,13 @@ document.addEventListener("DOMContentLoaded", () => {
         if (unpaired_intern_info !== undefined)
             {
                 let intern1 = added_intern;
-                let intern2 = remove_unpaired_intern(unpaired_intern_info[1])
+                let intern2 = remove_unpaired_intern(unpaired_intern_info[1]);
                 if(intern2 === undefined)
                     {
                         unpairedInterns.push(intern1);
                     }
                 else{internPairs.push([intern1,intern2])}
-                console.log(intern1,intern2)
+                console.log(intern1,intern2);
                 //remove from unpaired interns create a pair and push to paired interns
                 //Fix 
                 //If intern is unpaired and is the same as being pushed prob return
@@ -263,7 +267,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return
                 
             }
-        return console.error("could not move intern")
+        return console.error("could not move intern");
     }
 
     function get_intern_in_pair(pair_array,intern_name){
@@ -388,9 +392,15 @@ document.addEventListener("DOMContentLoaded", () => {
     function edit_mode_toggle(){
         if (edit_mode_state === false) {
             activate_edit_mode()
+            resultSaveButton.style.display = 'inline';
+            resultEditButton.style.display = 'none';
+            resultCSVButton.style.display = 'none'
             }
         else{
             deactivate_edit_mode()
+            resultSaveButton.style.display = 'none';
+            resultEditButton.style.display = 'inline';
+            resultCSVButton.style.display = 'inline';
             }
         }
 
@@ -492,6 +502,15 @@ document.addEventListener("DOMContentLoaded", () => {
     //Add All Previously Remove.
     //Previously Remove
 
+
+    //save button stuff save session storage and turn on edit button and csv
+    resultSaveButton.addEventListener('click', save_button_functionality);
+
+    function save_button_functionality(){
+        sessionStorage.setItem('internPairs', JSON.stringify(internPairs));
+        sessionStorage.setItem('unpairedInterns', JSON.stringify(unpairedInterns));
+        edit_mode_toggle();
+    }
 });
 
 
