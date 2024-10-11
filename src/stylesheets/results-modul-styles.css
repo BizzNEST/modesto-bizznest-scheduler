@@ -1,113 +1,113 @@
 /*************************************************************/
 @keyframes hover_anim_add {
     0%  {
-        border-radius:              100px;
+        border-radius:100px;
         }
     70% {
-        border-radius:              20px;
-        scale:                      1.1;
-        box-shadow:               #19f420 0px 0px 10px;
+        border-radius: 20px;
+        scale: 1.1;
+        box-shadow: #19f420 0px 0px 10px;
         }
     100%{
-        scale:                      1;
-        background:                 linear-gradient(180deg,#79C8A3,rgb(0, 255, 162));
+        scale: 1;
+        background: linear-gradient(180deg,#79C8A3,rgb(0, 255, 162));
         }
 }
 
 @keyframes hover_anim_remove {
     0%  {
-        border-radius:               100px;
+        border-radius: 100px;
         }
     70% {
-        border-radius:               20px;
-        scale:                       1.1;
-        box-shadow:                #ff2882 0px 0px 10px;
+        border-radius: 20px;
+        scale: 1.1;
+        box-shadow:#ff2882 0px 0px 10px;
         }
     100%{
         scale: 1;
-        background:                  linear-gradient(180deg,#ff2424,rgb(255, 0, 106));
+        background: linear-gradient(180deg,#ff2424,rgb(255, 0, 106));
 
         }
 }
 
 :root {
-    --button_size:                   25px
+    --button_size: 25px
 }
 
 .add-button {
-    background:                      linear-gradient(90deg,#79C8A3,rgb(0, 255, 162));
-    border:                          solid rgb(9, 255, 185) 2px;
-    border-radius:                   10px;
-    width:                           var(--button_size);
-    height:                          var(--button_size);
-    font-weight:                     900;
-    font-style:                      normal;
-    text-align:                      center;
+    background:  linear-gradient(90deg,#79C8A3,rgb(0, 255, 162));
+    border: solid rgb(9, 255, 185) 2px;
+    border-radius: 10px;
+    width: var(--button_size);
+    height:  var(--button_size);
+    font-weight: 900;
+    font-style: normal;
+    text-align: center;
     color: #000000;
-    visibility:                      hidden;
+    visibility: hidden;
     }
 
 .add-button:hover {
-    background:                      linear-gradient(180deg,#79C8A3,rgb(0, 255, 162));
-    border:                          solid rgb(9, 255, 185) 2px;
-    border-radius:                   10px;
-    width:                           var(--button_size);
-    height:                          var(--button_size);
-    font-weight:                     900;
-    font-style:                      normal;
-    text-align:                      center;
+    background: linear-gradient(180deg,#79C8A3,rgb(0, 255, 162));
+    border:  solid rgb(9, 255, 185) 2px;
+    border-radius:  10px;
+    width: var(--button_size);
+    height: var(--button_size);
+    font-weight: 900;
+    font-style:  normal;
+    text-align:  center;
 
-    animation-timing-function:       cubic-bezier(.02,.68,1,.45);
-    animation-name:                  hover_anim_add;
-    animation-duration:              0.2s;
+    animation-timing-function: cubic-bezier(.02,.68,1,.45);
+    animation-name:  hover_anim_add;
+    animation-duration: 0.2s;
     }   
 
 .remove-button {
-    background:                      linear-gradient(90deg,#ff2424,rgb(255, 0, 106));
-    border:                          none;
-    padding:                         5px;
-    border-radius:                   5px;
-    font-weight:                     900;
-    font-style:                      normal;
-    text-align:                      center;
-    color:                         #ffffff;
-    visibility:                      hidden;
+    background: linear-gradient(90deg,#ff2424,rgb(255, 0, 106));
+    border:  none;
+    padding: 5px;
+    border-radius: 5px;
+    font-weight:  900;
+    font-style:   normal;
+    text-align: center;
+    color:  #ffffff;
+    visibility:  hidden;
     }
 
 .remove-button:hover {
-    background:                      linear-gradient(180deg,#ff2424,rgb(255, 0, 106));
-    border:                          none;
-    border-radius:                   10px;
-    font-weight:                     900;
-    font-style:                      normal;
-    text-align:                      center;
+    background: linear-gradient(180deg,#ff2424,rgb(255, 0, 106));
+    border: none;
+    border-radius: 10px;
+    font-weight: 900;
+    font-style: normal;
+    text-align: center;
 
-    animation-timing-function:       cubic-bezier(.02,.68,1,.45);
-    animation-name:                  hover_anim_remove;
-    animation-duration:              0.2s;
+    animation-timing-function: cubic-bezier(.02,.68,1,.45);
+    animation-name: hover_anim_remove;
+    animation-duration: 0.2s;
     }   
 
 .edit-window{
     visibility: hidden;
-    display:                        flex;
-    flex-direction:                 column;
-    position:                       fixed;
-    top:                            10%;
-    width:                          50%;
-    background-color:              #151515;
-    border-radius:                  30px;
-    padding:                        3%;
-    border:                         3px #3B6250 solid;
-    z-index:                        100;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 10%;
+    width: 50%;
+    background-color: #151515;
+    border-radius: 30px;
+    padding: 3%;
+    border: 3px #3B6250 solid;
+    z-index: 100;
 }
 
 .edit-window-header{
-    display:                        flex;
-    justify-content:                center;
-    align-items:                    center;
-    padding-bottom:                 10px;
-    height:                         40px;
-    border-radius:                  10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 10px;
+    height: 40px;
+    border-radius: 10px;
 }
 
 
@@ -118,73 +118,73 @@
 
 #edit-search-bar {
     margin-top: 10px;
-    display:                        flex;
-    align-items:                    center;
-    background-color:               #333;
-    padding:                        8px;
-    border-radius:                  10px;
-    border:                         none;
-    color:                        #e0e0e0;
+    display: flex;
+    align-items: center;
+    background-color: #333;
+    padding: 8px;
+    border-radius: 10px;
+    border: none;
+    color: #e0e0e0;
 }
 #edit-search-bar:hover{
     background-color: #3B6250;
 }
 
 #edit-search-bar:focus{
-    outline:                        3px solid #3B6250;
-    border-radius:                  10px 10px 0px 0px;
+    outline: 3px solid #3B6250;
+    border-radius: 10px 10px 0px 0px;
 }
 
 .edit-window hr {
-    color:                        #ffffff;
-    width:                          100%;
+    color: #ffffff;
+    width: 100%;
 }
 
 .close-button  {
-    border-style:                   none;
-    border-color:                   none;
-    width:                          85px;
-    height:                         40px;
-    border-radius:                  50px;
-    font-weight:                    300;
-    background:                     linear-gradient(90deg, #79C8A3, #3B6250);
-    margin-top:                     50px;
+    border-style: none;
+    border-color: none;
+    width: 85px;
+    height: 40px;
+    border-radius: 50px;
+    font-weight: 300;
+    background: linear-gradient(90deg, #79C8A3, #3B6250);
+    margin-top: 50px;
   }
 
 .search-results-container{
-    margin-left:                    -3px;
-    margin-top:                     3px;
-    width:                          87%;
-    visibility:                     collapse;
-    position:                       absolute;
-    overflow:                       scroll;
-    border-radius:                  0px 0px 20px 20px;
-    background-color:              #151515;
-    border-top:                     4px solid#3B6250;
-    background-color:              #333;
-    box-shadow:                     0px 30px 40px 4px black ;
+    margin-left: -3px;
+    margin-top: 3px;
+    width: 87%;
+    visibility: collapse;
+    position: absolute;
+    overflow: scroll;
+    border-radius: 0px 0px 20px 20px;
+    background-color: #151515;
+    border-top: px solid#3B6250;
+    background-color: #333;
+    box-shadow: 0px 30px 40px 4px black ;
 }
 
 .intern-card{
-    text-align:                     left;
-    white-space:                    nowrap;
-    display:                        flex;
+    text-align: left;
+    white-space: nowrap;
+    display: flex;
 }
 
 .intern-card:nth-of-type(odd){
-   background-color:               #292929 ;
+   background-color: #292929 ;
 }
 
 .intern-card:hover{
-    text-align:                     left;
-    display:                        flex;
-    background-color:             #646464;
+    text-align: left;
+    display: flex;
+    background-color: #646464;
     }
 
 .intern-card p{
-    width:                          10%;
-    margin-right:                   auto;
-    margin-left:                    4%;
+    width: 10%;
+    margin-right: auto;
+    margin-left: 4%;
     }
 
 .intern-card hr{
@@ -192,81 +192,81 @@
     }
 
 .tab-container{
-    display:                        flex;
-    margin-top:                     10px;
-    margin-bottom:                  2px;
-    justify-content:                left;
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 2px;
+    justify-content: left;
 
 }
 
 .tab-button{
-    background-color:             #3B6250;
-    font-weight:                    800;
-    padding:                        10px;
-    font-size:                      large;
-    border:                       #3B6250 solid 1px; 
-    border-radius:                  10px 10px 0px 0px;
-    max-height:                     40px; 
-    max-width:                      100%;
-    white-space:                    nowrap;
-    overflow:                       hidden;
+    background-color: #3B6250;
+    font-weight: 800;
+    padding: 10px;
+    font-size: large;
+    border:#3B6250 solid 1px; 
+    border-radius: 10px 10px 0px 0px;
+    max-height: 40px; 
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
     }
     
 .tab-button:hover{
-    background-color:             #43755e;
-    max-width:                      100%;
+    background-color: #43755e;
+    max-width: 100%;
     }
     
 .tab-button:nth-of-type(odd){
-    background-color:             #385949;
-    border:                       #35493f solid 1px; 
-    max-width:                      100%;
+    background-color: #385949;
+    border: #35493f solid 1px; 
+    max-width: 100%;
 
     }
 
 .unpaired-results{
-    width:                          100%;
-    max-height:                     200px;
-    visibility:                     none;
-    overflow:                       scroll;
-    border-radius:                  0px 0px 10px 10px;
-    background-color:             #333;
+    width: 100%;
+    max-height: 200px;
+    visibility: none;
+    overflow: scroll;
+    border-radius: 0px 0px 10px 10px;
+    background-color: #333;
 }
 
 .recent-results{
-    width:                          100%;
-    max-height:                     200px;
-    visibility:                     none;
-    overflow:                       scroll;
-    border-radius:                  0px 0px 10px 10px;
-    background-color:             #333;
+    width: 100%;
+    max-height: 200px;
+    visibility: none;
+    overflow: scroll;
+    border-radius: 0px 0px 10px 10px;
+    background-color: #333;
 }
 
 
 /*Make Changes for mobile*/
 @media only screen and (max-width: 600px) {
     .edit-window {
-      width:                        90%;
-      top:                          10px;
+      width: 90%;
+      top: 10px;
       }
 
     .unpaired-results {
-        width:                      100%;
+        width: 100%;
       }
     .recent-results {
-        width:                      100%;
+        width: 100%;
     }
 
     .intern-card{
-        justify-content:            space-around;
+        justify-content: space-around;
       }
 
     .intern-card hr{
-        display:                    none;
+        display: none;
       }
     .intern-card p{
-    padding:                        auto 0px;
-    white-space:                    wrap;
+    padding: auto 0px;
+    white-space: wrap;
       }
     }
 
@@ -276,24 +276,24 @@
 
 @media only screen and (max-width: 900px) {
     .edit-window {
-      width:                        70%;
-      top:                          10px;
+      width: 70%;
+      top:  10px;
       }
 
     .unpaired-results {
-        width:                      100%;
+        width: 00%;
       }
     .recent-results {
-        width:                      100%;
+        width: 100%;
     }
 
     .intern-card{
-        justify-content:            space-around;
+        justify-content: space-around;
       }
 
     .intern-card p{
-    padding:                        auto 0px;
-    white-space:                    wrap;
+    padding: auto 0px;
+    white-space: wrap;
       }
     }
 .mobile-back-button {
