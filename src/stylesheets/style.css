@@ -51,7 +51,7 @@
     height: 832px;
     top: 51px;
     left: 650px;
-    display: none;
+    z-index: 0;
   }
   
   /* blur fade on top */

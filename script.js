@@ -296,6 +296,8 @@ function generatePairings() {
     sessionStorage.setItem('internPairs', JSON.stringify(internPairs));
     sessionStorage.setItem('unpairedInterns', JSON.stringify(unpairedInterns));
     sessionStorage.setItem('internData',JSON.stringify(internData));
+    sessionStorage.setItem('isPairedByLocation', JSON.stringify(isPairedByLocation));
+    sessionStorage.setItem('isPairedByDepartment', JSON.stringify(isPairedByDepartment));
     window.location.href = 'results.html';
 };
 

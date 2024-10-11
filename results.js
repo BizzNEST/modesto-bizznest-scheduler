@@ -1,9 +1,13 @@
 import * as generate_CSV from "./src/util/generate_csv.js"; 
+import * as Accuracy from "./src/util/accuracy.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     let internPairs = []; 
     let unpairedInterns = [];
     let internData = undefined
+    let resultSaveButton = document.getElementById('save-button');
+    let resultEditButton = document.getElementById('edit-button');
+    let resultCSVButton = document.getElementById('download-csv-button');
     // Gets the data from sessionStorage   
     function loadInternPairs() {
         const storedPairs = JSON.parse(sessionStorage.getItem('internPairs')) || [];
@@ -12,6 +16,11 @@ document.addEventListener("DOMContentLoaded", () => {
             internPairs = storedPairs;
             displayInterns(internPairs, storedUnpaired); // Display interns directly without shuffling
         }}
+
+        const backButton = document.getElementById('back-button');
+            backButton.addEventListener('click', function() {
+                window.history.back();
+            });
 
         // Call this function to display the pairs
     function displayInterns(pairs, unpaired) {
@@ -31,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <div class="intern-name">${intern.name}</div>
                     <div class="intern-location">${intern.location}</div>
                     <div class="intern-department">${intern.department}</div>
-                <button class="remove-button" id="${intern.name} remove-button">Remove</button>
+                <button class="remove-button" id="${intern.name}">Remove</button>
             </div>
                 `;
         });
@@ -52,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="intern-name">${intern.name}</div>
                 <div class="intern-location">${intern.location}</div>
                 <div class="intern-department">${intern.department}</div>
-            <button class="remove-button" id="${intern.name} remove-button">Remove</button>
+            <button class="remove-button" id="${intern.name}">Remove</button>
         </div>
         `;
 
@@ -69,10 +78,12 @@ document.addEventListener("DOMContentLoaded", () => {
         window_functionality_setup();
         edit_button_functionality_setup();
         add_button_functionality_setup();
+        remove_button_functionality_setup();
+        Accuracy.calculatePairAccuracy(internPairs);
     };
 
     //event listener for download csv
-    document.getElementById('download-csv-button').addEventListener('click', function () {
+    resultCSVButton.addEventListener('click', function () {
         generate_CSV.downloadCSV(generate_CSV.generateCSV(internPairs), 'intern_pairs.csv');
     });
 
@@ -81,15 +92,17 @@ document.addEventListener("DOMContentLoaded", () => {
     //Sets Up Window Functionality
     let card_hovering = false;
     let add_button_parent = undefined;
-    let edit_mode_state = false
-    let removedInterns = []
+    let edit_mode_state = false;
+    let removedInterns = [];
     let curr_open_tab = undefined;
-
+    let remove_button_parent = undefined;
+    
+    
     function load_intern_data(){
         const storedinterData = JSON.parse(sessionStorage.getItem('internData')) || [];
         internData = storedinterData;
         const storedUnpaired = JSON.parse(sessionStorage.getItem('unpairedInterns')) || [];
-        unpairedInterns = storedUnpaired
+        unpairedInterns = storedUnpaired;
         }
 
     function window_functionality_setup(){
@@ -112,24 +125,38 @@ document.addEventListener("DOMContentLoaded", () => {
         recently_removed.style.visibility = "none";
     }
 
-    function on_unpaired_tab_click(){
+    function on_unpaired_tab_click(tab){
+        let other_tab = document.getElementById("recently-removed-tab");
+        other_tab.style.backgroundColor = "#3B6250";
+        tab.target.style.backgroundColor = "#378762";
         let unpaired_results_container = document.querySelector(".unpaired-results");
         open_tab(unpaired_results_container)
         }
     
-    function on_recently_removed_tab_click(){
+    function on_recently_removed_tab_click(tab){
+        let other_tab = document.getElementById("unpaired-tab"); // Make dynamic if possible
+        other_tab.style.backgroundColor = "#3B6250";
+          tab.target.style.backgroundColor = "#378762";
         let recent_results_container = document.querySelector(".recent-results");
         open_tab(recent_results_container)
         }   
 
     function open_tab(tab_page) {
+        let unpaired_results_container = document.querySelector(".unpaired-results");
+        console.log(unpaired_results_container.childElementCount)
         if (curr_open_tab !== undefined) {
             close_tab(curr_open_tab);
         }
+
         curr_open_tab = tab_page;
-        if (tab_page.childElementCount === 0){
+
+        if (tab_page.childElementCount <= 1){
             tab_page.style.height = "50px"
             }
+        else if(tab_page.childElementCount >= 2){
+            tab_page.style.height = "inherit";
+            }   // For Inherited Height 
+
         tab_page.style.display = "block"; // Use block to show the tab
         tab_page.style.borderBottom = "4px solid #3B6250";
         tab_page.style.borderTop = "4px solid #3B6250";
@@ -184,44 +211,46 @@ document.addEventListener("DOMContentLoaded", () => {
                             <p>${intern.location}</p>
                             </div>`
             html += interncard;
-            search_limit++
+            search_limit++;
             }
         //Asigns Event Listner
-        search_result_container.innerHTML = html
+        search_result_container.innerHTML = html;
         for(let child of search_result_container.childNodes){
-            let internName = child.firstChild.innerHTML
-            setup_card_event_listener(child)
+            let internName = child.firstChild.innerHTML;
+            setup_card_event_listener(child);
             }     
     }
 
     function setup_card_event_listener(card){
-        card.addEventListener("click",on_card_click,)
-        card.addEventListener("mouseover",on_card_hover,)
-        card.addEventListener("mouseout",on_card_leave,)
+        card.addEventListener("click",on_card_click,);
+        card.addEventListener("mouseover",on_card_hover,);
+        card.addEventListener("mouseout",on_card_leave,);
     }
 
     function remove_card_event_listener(card){
-        card.removeEventListener("click",on_card_click,)
-        card.removeEventListener("mouseover",on_card_hover,)
-        card.removeEventListener("mouseout",on_card_leave,)
+        card.removeEventListener("click",on_card_click,);
+        card.removeEventListener("mouseover",on_card_hover,);
+        card.removeEventListener("mouseout",on_card_leave,);
     }
 
     function on_card_click(card){
         //If Clicked On Text move refrence to div : Div contains id
         let clicked_card = card.target;
         if (clicked_card.tagName !== "DIV"){
-            clicked_card = clicked_card.parentNode}
+            clicked_card = clicked_card.parentNode;
+        }
         let added_intern_name = clicked_card.id;
         move_intern(added_intern_name,add_button_parent);
         close_edit_window();
         activate_edit_mode();
-        add_button_functionality_setup()
+        add_button_functionality_setup();
+        remove_button_functionality_setup();
     }
 
     function move_intern(intern_name,button_parent){
         //Remove if intern is existing
         if(intern_name===button_parent){
-            return
+            return;
         }
         let added_intern = undefined;
         function remove_intern(){
@@ -237,16 +266,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 added_intern = remove_unpaired_intern(removed_intern_info[1])
                 return added_intern;
                 }
+            //if its in removed interns
+            removed_intern_info = get_unpaired_intern(removedInterns, intern_name);
+            if(removed_intern_info){
+                added_intern = remove_unpaired_intern(removed_intern_info[1]);
+                return added_intern;
+            }
         return (undefined);
         }
-        added_intern = remove_intern()
+        added_intern = remove_intern();
 
         //If not found in the pair page get it from intern data
         if (added_intern === undefined){
-            added_intern = internData.find(intern => intern.name === intern_name)
+            added_intern = internData.find(intern => intern.name === intern_name);
             }
         if (added_intern === undefined){
-            console.error("Intern Not Found: Cannot Pair Intern.")
+            console.error("Intern Not Found: Cannot Pair Intern.");
             }
 
         //If desired location is a pair add added intern 
@@ -254,16 +289,16 @@ document.addEventListener("DOMContentLoaded", () => {
         if (new_location_info !== undefined && new_location_info !== false){
             //Move To New location
             if(new_location_info[2] <= 0){
-                let pair_location = new_location_info[1]
-                internPairs[pair_location].splice(0,0,added_intern)
-                displayInterns(internPairs,unpairedInterns)
-                return
+                let pair_location = new_location_info[1];
+                internPairs[pair_location].splice(0,0,added_intern);
+                displayInterns(internPairs,unpairedInterns);
+                return;
                 }
 
-            let pair_location = new_location_info[1]
-            internPairs[pair_location].splice((new_location_info[0]-1),0,added_intern)
-            displayInterns(internPairs,unpairedInterns)
-            return
+            let pair_location = new_location_info[1];
+            internPairs[pair_location].splice((new_location_info[0]-1),0,added_intern);
+            displayInterns(internPairs,unpairedInterns);
+            return;
             
             }
         //If its a unpaired intern
@@ -271,13 +306,13 @@ document.addEventListener("DOMContentLoaded", () => {
         if (unpaired_intern_info !== undefined)
             {
                 let intern1 = added_intern;
-                let intern2 = remove_unpaired_intern(unpaired_intern_info[1])
+                let intern2 = remove_unpaired_intern(unpaired_intern_info[1]);
                 if(intern2 === undefined)
                     {
                         unpairedInterns.push(intern1);
                     }
                 else{internPairs.push([intern1,intern2])}
-                console.log(intern1,intern2)
+                console.log(intern1,intern2);
                 //remove from unpaired interns create a pair and push to paired interns
                 //Fix 
                 //If intern is unpaired and is the same as being pushed prob return
@@ -285,7 +320,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return
                 
             }
-        return console.error("could not move intern")
+        return console.error("could not move intern");
     }
 
     function get_intern_in_pair(pair_array,intern_name){
@@ -344,7 +379,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let unpaired_results_container = document.querySelector(".unpaired-results");
         populate_unpaired_interns()
         populate_recently_removed()
-        open_tab(unpaired_results_container)
+        setTimeout( () => open_tab(unpaired_results_container) , 1 );
     }
 
     function populate_unpaired_interns(){
@@ -410,9 +445,15 @@ document.addEventListener("DOMContentLoaded", () => {
     function edit_mode_toggle(){
         if (edit_mode_state === false) {
             activate_edit_mode()
+            resultSaveButton.style.display = 'inline';
+            resultEditButton.style.display = 'none';
+            resultCSVButton.style.display = 'none'
             }
         else{
             deactivate_edit_mode()
+            resultSaveButton.style.display = 'none';
+            resultEditButton.style.display = 'inline';
+            resultCSVButton.style.display = 'inline';
             }
         }
 
@@ -433,9 +474,11 @@ document.addEventListener("DOMContentLoaded", () => {
         let remove_buttons_elements = get_all_remove_buttons()
         for (let element of add_button_elements) {
             element.style.visibility = "hidden";
+            // element.style.position = "absolute";
             }
         for (let element of remove_buttons_elements) {
             element.style.visibility = "hidden";
+            // element.style.position = "absolute" 
             }
         edit_mode_state = false;
         }
@@ -453,6 +496,46 @@ document.addEventListener("DOMContentLoaded", () => {
             element.addEventListener('click',on_add_click)
             }
         }
+    
+    //remove Button Functionality
+    function remove_button_functionality_setup(){
+        let current_buttons = get_all_remove_buttons();
+        if(current_buttons){
+            for(let element of current_buttons){
+                element.removeEventListener('click',remove_on_click);
+                }
+            }
+        let add_button_elements = get_all_remove_buttons();
+        for(let element of add_button_elements){
+            element.addEventListener('click', remove_on_click);
+        }
+    }
+
+    function remove_on_click(button){
+        remove_button_parent = button.target.id;
+        let intern_in_pair_info = get_intern_in_pair(internPairs, remove_button_parent);
+        let unpaired_intern_info = get_unpaired_intern(unpairedInterns ,remove_button_parent)
+        let added_intern = undefined;
+        if(unpaired_intern_info){
+            added_intern = remove_unpaired_intern(unpaired_intern_info[1]);
+            //console.log(added_intern);
+        }
+        if(intern_in_pair_info){
+            added_intern = remove_intern_from_pair(intern_in_pair_info[1], intern_in_pair_info[2]);
+            let pair = internPairs[intern_in_pair_info[1]]  //we can loop through internPairs check the length of arrays and if 
+            //if pair has only one person it will be moved to unpaired.
+            if(pair.length <= 1){
+                unpairedInterns.push(pair[0]);
+                internPairs.splice(intern_in_pair_info[1], 1);
+            }
+        }
+        displayInterns(internPairs, unpairedInterns);
+        removedInterns.push(added_intern);
+        activate_edit_mode();
+        add_button_functionality_setup();
+        remove_button_functionality_setup();
+
+    }
 
     function on_add_click(button) {
         add_button_parent = button.target.id;
@@ -470,6 +553,16 @@ document.addEventListener("DOMContentLoaded", () => {
     //add a pop up seachbar
     //Add All Previously Remove.
     //Previously Remove
+
+
+    //save button stuff save session storage and turn on edit button and csv
+    resultSaveButton.addEventListener('click', save_button_functionality);
+
+    function save_button_functionality(){
+        sessionStorage.setItem('internPairs', JSON.stringify(internPairs));
+        sessionStorage.setItem('unpairedInterns', JSON.stringify(unpairedInterns));
+        edit_mode_toggle();
+    }
 });
 
 
