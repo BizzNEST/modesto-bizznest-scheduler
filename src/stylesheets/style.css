@@ -1,7 +1,7 @@
 /* Overall layout */
-
 main {
   flex-grow: 1; /* Make the main content area grow to fill available space */
+  z-index: 1;
 }
 
 html, body {
@@ -13,14 +13,13 @@ html, body {
 }
 
 .logo-background {
-  position: absolute;
-  width: 880px;
-  height: 832px;
-  top: 51px;
-  left: 650px;
-  z-index: 0;
-  display: none;
-  
+  position: fixed; /* Ensure the logo stays in place */
+  width: 80vw; /* Full viewport width */
+  height: 80vw; /* Auto height to maintain aspect ratio */
+  left: 30%;
+  opacity: .8; /* Subtle logo effect in the background */
+  z-index: -1; /* Push it behind other content */
+
 }
 
 .header-div{
@@ -31,33 +30,36 @@ html, body {
 }
 
   
-  .blur-fade { /*bottom gradient blur*/
-    position: absolute;
-    width: 100%;
-    height: 151px;
-    top: 0;
-    backdrop-filter: blur(100px);
-    mask-image: linear-gradient(to bottom, black 40%, transparent 90%);
-    display: none;
-  }
+.blur-fade { 
+  position: fixed; /* Fixed to the top */
+  width: 100%; 
+  height: 151px;
+  top: 0; /* Stick to the top */
+  backdrop-filter: blur(100px);
+  mask-image: linear-gradient(to bottom, black 40%, transparent 90%);
+  z-index: 0; /* Ensure it's layered properly */
+  pointer-events: none; /* Prevent it from blocking interactions */
+}
 
-  .blur-fade-2 { /*bottom gradient blur*/
-    position: absolute;
-    width: 1370px;
-    height: 151px;
-    top: 813px;
-    left: 3px;
-    background-color: #00000040;
-    backdrop-filter: blur(100px);
-    mask-image: linear-gradient(to top, black 40%, transparent 90%);
-    display: none;
-  }
-  
+.blur-fade-2 { 
+  position: fixed; /* Fixed to the bottom */
+  width: 100%; 
+  height: 100px;
+  bottom: 0; /* Stick to the bottom */
+  background-color: #00000040;
+  backdrop-filter: blur(100px);
+  mask-image: linear-gradient(to top, black 40%, transparent 90%);
+  z-index: 0; /* Ensure it's layered properly */
+  pointer-events: none; /* Prevent it from blocking interactions */
+ 
+}
+
 .header-div .logo{
   display: flex;
   flex-direction: row;
   width: 50%;
   margin-left: 10%;
+  z-index: 1;
 }
 
   /* NESTwork Text */
@@ -73,9 +75,12 @@ html, body {
     /* Top Left Logo */
     .header-div .vector {
       width: auto;
-      max-width: 100%;
+      height: auto;
+      max-width: 8%;
       object-fit: contain; /* Ensures the aspect ratio is maintained */
+      margin-right: 2%;   
     }
+
 
     .header-div .text-wrapper {
       font-weight: 700;
@@ -96,6 +101,7 @@ html, body {
       display: flex;
       width: 60%;
       justify-content: left;
+      z-index: 2;
     }
     
     .nav-button {
@@ -127,12 +133,13 @@ html, body {
   
 
   .overview {
-    background-color: #191919;
+    background-color: transparent;
     display: flex;
     flex-direction: row;
     justify-content: center;
     width: 100%;
     column-gap: 5%;
+    z-index: 1;
   }
 
   
@@ -172,7 +179,7 @@ html, body {
      display: flex;
     justify-content: center;
     padding: 20px;
-    background-color: #1a1a1a;
+    background-color: transparent;
     color: white;
     width: 100%;
     bottom: 0;
@@ -186,11 +193,13 @@ html, body {
     font-size: 25px;
     margin-top: 1%;
     margin-right: 1%;
+    z-index: 1;
   }
   
   .footer-logo {
   height: 10%;
   width: 10%;
+  z-index: 1;
   }
   
   body {
@@ -224,7 +233,10 @@ html, body {
     margin-bottom: 1px; /* Adds space below the heading */
     margin-top: 0px;
     width: 100%; /* Make sure it takes the full width */
-}
+    position: relative;
+    z-index: 3; 
+  }
+
 
   
   .filters {
@@ -241,6 +253,7 @@ html, body {
   .filter-group label {
     margin-right: 10px; /* Add space between the label and the buttons */
     white-space: nowrap; /* Prevents the label from wrapping */
+    
   }
   
   .filter-buttons {
@@ -259,6 +272,7 @@ html, body {
     padding: 10px 20px;
     border-radius: 30px;
     cursor: pointer;
+    
     transition: background-color 0.3s;
     
   }
@@ -674,5 +688,5 @@ thead th {
 
 .tutorial-button:hover {
     cursor: pointer
+    
 }
-
