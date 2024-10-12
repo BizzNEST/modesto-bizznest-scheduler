@@ -312,7 +312,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (unpaired_intern_info !== undefined)
             {
                 let intern1 = added_intern;
-                let intern2 = remove_unpaired_intern(unpaired_intern_info[1]);
+                let intern2 = remove_unpaired_intern(unpairedInterns,unpaired_intern_info[1]);
                 if(intern2 === undefined)
                     {
                         unpairedInterns.push(intern1);
