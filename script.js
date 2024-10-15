@@ -303,6 +303,48 @@ differentDepartmentButton.addEventListener("click", function () {
     }
 });
 
+function pairInternsByCondition(internGroups, conditionFn, unpairedInterns) {
+    let usedInterns = new Set();
+
+    for (let i = 0; i < internGroups.length; i++) {
+        // Skip if the current intern is already paired
+        if (usedInterns.has(i)) continue;
+
+        let paired = false;
+
+        for (let j = i + 1; j < internGroups.length; j++) {
+            // Skip if the second intern is already paired
+            if (usedInterns.has(j)) continue;
+
+            // Apply the condition function (same or different logic)
+            if (conditionFn(internGroups[i], internGroups[j])) {
+                // Pair them if the condition is satisfied
+                internPairs.push([internGroups[i], internGroups[j]]);
+                usedInterns.add(i);
+                usedInterns.add(j);
+                paired = true;
+                break;
+            }
+        }
+
+        // If no valid pair found, add to unpaired interns
+        if (!paired) {
+            unpairedInterns.push(internGroups[i]);
+        }
+    }
+}
+
+// Function to handle either 'same' or 'different' conditions dynamically
+function createConditionFn(key, condition) {
+    return (intern1, intern2) => {
+        if (condition === 'same') {
+            return intern1[key] === intern2[key];
+        } else if (condition === 'different') {
+            return intern1[key] !== intern2[key];
+        }
+    };
+}
+
 function checkFilterConflicts() {
     if (isPairedByLocation && isPairedByDifferentLocation) {
         alert("Cannot select both 'Same Location' and 'Different Location' filters.");
@@ -328,26 +370,27 @@ function generatePairings() {
 
     // Pairing logic based on selected filters
     if (isPairedByLocation && isPairedByDepartment) {
-        // Group by location, then by department
         const internsByLocation = groupBy(shuffledInterns, "location");
         Object.values(internsByLocation).forEach(locationGroup => {
             const internsByDept = groupBy(locationGroup, "department");
             pairWithinGroups(internsByDept, unpairedInterns); // Pair within groups
         });
     } else if (isPairedByLocation) {
-        const internsByLocation = groupBy(shuffledInterns, "location");
-        pairWithinGroups(internsByLocation, unpairedInterns);
+        const conditionFn = createConditionFn('location', 'same');
+        pairInternsByCondition(shuffledInterns, conditionFn, unpairedInterns);
     } else if (isPairedByDepartment) {
-        const internsByDepartment = groupBy(shuffledInterns, "department");
-        pairWithinGroups(internsByDepartment, unpairedInterns);
+        const conditionFn = createConditionFn('department', 'same');
+        pairInternsByCondition(shuffledInterns, conditionFn, unpairedInterns);
     } else if (isPairedByDifferentLocation) {
-        pairDifferentLocation(shuffledInterns, unpairedInterns); // Ensure different location
+        const conditionFn = createConditionFn('location', 'different');
+        pairInternsByCondition(shuffledInterns, conditionFn, unpairedInterns); 
     } else if (isPairedByDifferentDepartment) {
-        pairDifferentDepartment(shuffledInterns, unpairedInterns); // Ensure different department
+        const conditionFn = createConditionFn('department', 'different');
+        pairInternsByCondition(shuffledInterns, conditionFn, unpairedInterns);
     } else {
         createPairs(shuffledInterns, unpairedInterns); // Random pairing with no filter
     }
-
+    
         // Log the flattened data and internPairs
     console.log('internPairs:', internPairs.map(pair => pair.map(intern => ({ name: intern.name, location: intern.location, department: intern.department }))));
     console.log('unpairedInterns:', unpairedInterns.map(intern => ({ name: intern.name, location: intern.location, department: intern.department })));
@@ -356,30 +399,10 @@ function generatePairings() {
     sessionStorage.setItem('internData',JSON.stringify(internData));
     sessionStorage.setItem('isPairedByLocation', JSON.stringify(isPairedByLocation));
     sessionStorage.setItem('isPairedByDepartment', JSON.stringify(isPairedByDepartment));
+    sessionStorage.setItem('isPairedByDifferentLocation', JSON.stringify(isPairedByDifferentLocation));
+    sessionStorage.setItem('isPairedByDifferentDepartment', JSON.stringify(isPairedByDifferentDepartment));
     window.location.href = 'results.html';
 };
-
-// Pairing functions to handle different filters
-function pairDifferentLocation(internGroups, unpairedInterns) {
-    // Iterate through each intern and ensure they are paired with a different location
-    for (let i = 0; i < internGroups.length; i += 2) {
-        if (i + 1 < internGroups.length && internGroups[i].location !== internGroups[i + 1].location) {
-            internPairs.push([internGroups[i], internGroups[i + 1]]);
-        } else {
-            unpairedInterns.push(internGroups[i]);
-        }
-    }
-}
-
-function pairDifferentDepartment(internGroups, unpairedInterns) {
-    for (let i = 0; i < internGroups.length; i += 2) {
-        if (i + 1 < internGroups.length && internGroups[i].department !== internGroups[i + 1].department) {
-            internPairs.push([internGroups[i], internGroups[i + 1]]);
-        } else {
-            unpairedInterns.push(internGroups[i]);
-        }
-    }
-}
 
 function groupBy(interns, key) {
     return interns.reduce((grouped, intern) => {
