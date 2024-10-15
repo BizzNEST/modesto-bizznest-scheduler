@@ -109,10 +109,15 @@ function removeFromPairings(internName, li = null) {
     function updateTotalPairings() {
         totalPairings.textContent = `${selectedPairings.length} Total`;
 }
-                //THIS IS BROKEN
-        // Select All  ( adds all the filtered interns to the pairing box. )
-    document.getElementById("select-all").addEventListener("click", () => {
-    filteredInterns.forEach(intern => {
+      
+    // Select All (adds all the filtered or displayed interns to the pairing box)
+document.getElementById("select-all").addEventListener("click", () => {
+    const visibleInterns = Array.from(document.querySelectorAll('#intern-tbody tr')).map(row => {
+        const internName = row.querySelector('.toggle-button').getAttribute('data-name');
+        return internData.find(intern => intern.name === internName);
+    });
+
+    visibleInterns.forEach(intern => {
         if (!selectedInterns.some(i => i.name === intern.name)) {
             selectedInterns.push(intern);
             addToPairings(intern.name);
@@ -120,18 +125,23 @@ function removeFromPairings(internName, li = null) {
     });
     updateInternTableButtons();
 });
-                //THIS IS BROKEN
-        // Deselect All  (this function removes all the filtered interns from the pairing box.)
-    document.getElementById("deselect-all").addEventListener("click", () => {
-    filteredInterns.forEach(intern => {
+
+     // Deselect All (removes all the filtered or displayed interns from the pairing box)
+document.getElementById("deselect-all").addEventListener("click", () => {
+    const visibleInterns = Array.from(document.querySelectorAll('#intern-tbody tr')).map(row => {
+        const internName = row.querySelector('.toggle-button').getAttribute('data-name');
+        return internData.find(intern => intern.name === internName);
+    });
+
+    visibleInterns.forEach(intern => {
         if (selectedInterns.some(i => i.name === intern.name)) {
-            let intern_index = selectedInterns.indexOf(intern);
-            selectedInterns.splice(intern_index,1);
+            selectedInterns = selectedInterns.filter(i => i.name !== intern.name);
             removeFromPairings(intern.name); // Remove from pairings and update
-            }
+        }
     });
     updateInternTableButtons();
 });
+
 
         // clears all interns from the pairing box.
     document.getElementById("clear-all").addEventListener("click", () => {
