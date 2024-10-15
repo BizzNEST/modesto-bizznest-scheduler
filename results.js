@@ -8,32 +8,36 @@ document.addEventListener("DOMContentLoaded", () => {
     let resultSaveButton = document.getElementById('save-button');
     let resultEditButton = document.getElementById('edit-button');
     let resultCSVButton = document.getElementById('download-csv-button');
-    // Gets the data from sessionStorage   
+
+        // Get the data from sessionStorage   
     function loadInternPairs() {
         const storedPairs = JSON.parse(sessionStorage.getItem('internPairs')) || [];
         const storedUnpaired = JSON.parse(sessionStorage.getItem('unpairedInterns')) || [];
-        if (storedPairs.length) { 
-            internPairs = storedPairs;
-            displayInterns(internPairs, storedUnpaired); // Display interns directly without shuffling
-        }}
+            if (storedPairs.length) { 
+                internPairs = storedPairs;
+                displayInterns(internPairs, storedUnpaired); // Display interns directly without shuffling
+            }}
 
-        const backButton = document.getElementById('back-button');
-            backButton.addEventListener('click', function() {
-                window.history.back();
-            });
+        // Add event listener to the back button on mobile
+    const backButton = document.getElementById('back-button');
+        backButton.addEventListener('click', function() {
+            window.history.back();
+        });
 
-        // Call this function to display the pairs
+        // Display the pulled interns to the page
     function displayInterns(pairs, unpaired) {
         const container = document.getElementById('results-list');
         let html = '';
         let index = 0;
 
+        // Add a lighter background to every other pair that is displayed
     pairs.forEach(pair => {
         const pairClass = index % 2 !== 0 ? 'every-other-background' : '';
         html += `<div class="pair ${pairClass}">`;
 
-        // Assuming each pair contains multiple interns
+        // For each intern display their name location and department
     pair.forEach(intern => {
+        // intern div added so each intern can be modified specifically
         html += `
             <div class="intern">
                 <button class="add-button" id="${intern.name}">+</button>
@@ -43,18 +47,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 <button class="remove-button" id="${intern.name}">Remove</button>
             </div>
                 `;
+            });
+            html += `</div>`;
+            index++;
         });
 
-        html += `</div>`;
-        index++;
-    });
-
-    // Display the unpaired interns
+        // Display the unpaired interns with the same background for consistency
     unpaired.forEach(intern => {
         const pairClass = index % 2 !== 0 ? 'every-other-background' : '';
         html += `<div class="pair ${pairClass}">`;
 
-        // Unpaired intern is displayed similarly to a paired intern but alone
+        // intern is displayed similarly to a paired intern but alone
         html += `
             <div class="intern">
             <button class="add-button" id="${intern.name}">+</button>
@@ -71,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
     container.innerHTML = html;
     }
 
-        // Call loadInternPairs function when the page loads
+        // Calls all the functions that need to be called when the page loads
     window.onload = function() {
         loadInternPairs();
         load_intern_data();
@@ -82,21 +85,18 @@ document.addEventListener("DOMContentLoaded", () => {
         Accuracy.calculatePairAccuracy(internPairs);
     };
 
-    //event listener for download csv
+        //event listener for download csv button
     resultCSVButton.addEventListener('click', function () {
         generate_CSV.downloadCSV(generate_CSV.generateCSV(internPairs), 'intern_pairs.csv');
     });
 
-    //Alan's Code
-    //--Window Functions
-    //Sets Up Window Functionality
+        // Edit Results modal functions
     let card_hovering = false;
     let add_button_parent = undefined;
     let edit_mode_state = false;
     let removedInterns = [];
     let curr_open_tab = undefined;
     let remove_button_parent = undefined;
-    
     
     function load_intern_data(){
         const storedinterData = JSON.parse(sessionStorage.getItem('internData')) || [];
@@ -149,11 +149,8 @@ document.addEventListener("DOMContentLoaded", () => {
         let card_height = 50
         let calculated_height = card_height * tab_page.childElementCount;
 
-    
         curr_open_tab = tab_page;
-     
         tab_page.style.height = `${Math.min(calculated_height, 300)}px`; 
-
         tab_page.style.display = "block"; // Use block to show the tab
         tab_page.style.visibility = "visible"
         tab_page.style.borderBottom = "4px solid #3B6250";
@@ -574,7 +571,4 @@ document.addEventListener("DOMContentLoaded", () => {
         edit_mode_toggle();
     }
 });
-
-
-
 
