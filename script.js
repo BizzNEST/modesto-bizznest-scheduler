@@ -420,17 +420,6 @@ function generatePairings() {
     window.location.href = 'results.html';
 };
 
-function groupBy(interns, key) {
-    return interns.reduce((grouped, intern) => {
-        const groupKey = intern[key];
-        if(!grouped[groupKey]) {
-            grouped[groupKey] = [];
-        } 
-        grouped[groupKey].push(intern);
-        return grouped;
-    }, {});
-};
-
                     // Get modal element
         const modal = document.getElementById('tutorial-modal');
 
