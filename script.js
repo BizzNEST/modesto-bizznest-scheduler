@@ -303,7 +303,7 @@ differentDepartmentButton.addEventListener("click", function () {
     }
 });
 
-function pairInternsByCondition(internGroups, conditionFn, unpairedInterns) {
+function pairInternsByCondition(internGroups, conditionFns, unpairedInterns) {
     let usedInterns = new Set();
 
     for (let i = 0; i < internGroups.length; i++) {
@@ -316,9 +316,11 @@ function pairInternsByCondition(internGroups, conditionFn, unpairedInterns) {
             // Skip if the second intern is already paired
             if (usedInterns.has(j)) continue;
 
-            // Apply the condition function (same or different logic)
-            if (conditionFn(internGroups[i], internGroups[j])) {
-                // Pair them if the condition is satisfied
+            // Apply all condition functions in conditionFns array
+            const allConditionsMet = conditionFns.every(fn => fn(internGroups[i], internGroups[j]));
+
+            if (allConditionsMet) {
+                // Pair them if all conditions are satisfied
                 internPairs.push([internGroups[i], internGroups[j]]);
                 usedInterns.add(i);
                 usedInterns.add(j);
@@ -334,15 +336,41 @@ function pairInternsByCondition(internGroups, conditionFn, unpairedInterns) {
     }
 }
 
-// Function to handle either 'same' or 'different' conditions dynamically
 function createConditionFn(key, condition) {
     return (intern1, intern2) => {
         if (condition === 'same') {
-            return intern1[key] === intern2[key];
+            return intern1[key] === intern2[key]; // For 'same' condition
         } else if (condition === 'different') {
-            return intern1[key] !== intern2[key];
+            return intern1[key] !== intern2[key]; // For 'different' condition
         }
     };
+}
+
+// Function to handle either 'same' or 'different' conditions dynamically
+function createConditionFns() {
+    let conditionFns = [];
+
+    // Add 'same location' condition if selected
+    if (isPairedByLocation) {
+        conditionFns.push(createConditionFn('location', 'same'));
+    }
+
+    // Add 'different location' condition if selected
+    if (isPairedByDifferentLocation) {
+        conditionFns.push(createConditionFn('location', 'different'));
+    }
+
+    // Add 'same department' condition if selected
+    if (isPairedByDepartment) {
+        conditionFns.push(createConditionFn('department', 'same'));
+    }
+
+    // Add 'different department' condition if selected
+    if (isPairedByDifferentDepartment) {
+        conditionFns.push(createConditionFn('department', 'different'));
+    }
+
+    return conditionFns;
 }
 
 function checkFilterConflicts() {
@@ -368,29 +396,17 @@ function generatePairings() {
     internPairs = [];
     let unpairedInterns = [];
 
-    // Pairing logic based on selected filters
-    if (isPairedByLocation && isPairedByDepartment) {
-        const internsByLocation = groupBy(shuffledInterns, "location");
-        Object.values(internsByLocation).forEach(locationGroup => {
-            const internsByDept = groupBy(locationGroup, "department");
-            pairWithinGroups(internsByDept, unpairedInterns); // Pair within groups
-        });
-    } else if (isPairedByLocation) {
-        const conditionFn = createConditionFn('location', 'same');
-        pairInternsByCondition(shuffledInterns, conditionFn, unpairedInterns);
-    } else if (isPairedByDepartment) {
-        const conditionFn = createConditionFn('department', 'same');
-        pairInternsByCondition(shuffledInterns, conditionFn, unpairedInterns);
-    } else if (isPairedByDifferentLocation) {
-        const conditionFn = createConditionFn('location', 'different');
-        pairInternsByCondition(shuffledInterns, conditionFn, unpairedInterns); 
-    } else if (isPairedByDifferentDepartment) {
-        const conditionFn = createConditionFn('department', 'different');
-        pairInternsByCondition(shuffledInterns, conditionFn, unpairedInterns);
+    // Create the array of condition functions based on the active filters
+    const conditionFns = createConditionFns();
+
+    if (conditionFns.length > 0) {
+        // Pair interns based on the selected filters
+        pairInternsByCondition(shuffledInterns, conditionFns, unpairedInterns);
     } else {
-        createPairs(shuffledInterns, unpairedInterns); // Random pairing with no filter
+        // Random pairing with no filter
+        createPairs(shuffledInterns, unpairedInterns);
     }
-    
+
         // Log the flattened data and internPairs
     console.log('internPairs:', internPairs.map(pair => pair.map(intern => ({ name: intern.name, location: intern.location, department: intern.department }))));
     console.log('unpairedInterns:', unpairedInterns.map(intern => ({ name: intern.name, location: intern.location, department: intern.department })));
