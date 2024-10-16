@@ -1,83 +1,116 @@
 /* General Logo and Navigation Adjustments */
 .header-div .vector {
-   max-width: 10%; /* Ensure the logo stays the same size */
-   min-width: 50px; /* Prevent it from getting too small */
-}
-
-/* Media Query for Laptop Screens 1321px */
-@media only screen and (max-width: 1321px) {
-    /* Adjust the navigation bar and the filter buttons (if applicable) */
+    max-width: 10%; /* Ensure the logo stays the same size */
+    min-width: 50px; /* Prevent it from getting too small */
+    }
+    
+    
+    /* Media Query for Laptop Screens 1321px */
+    @media only screen and (max-width: 1321px) {
+    /* Reduce the size of the filter buttons and keep them on one row */
     .filter-buttons {
         display: flex;
         justify-content: flex-start;
         gap: 5px; /* Reduce the gap between buttons */
         flex-wrap: nowrap; /* Prevent buttons from wrapping to the next line */
     }
-
-    .filter-buttons button {
+        .filter-buttons button {
         padding: 5px 10px; /* Reduce padding to make buttons smaller */
         font-size: 12px; /* Make the font size smaller to fit more buttons */
         min-width: auto; /* Ensure buttons don't expand too much */
     }
-
-    /* Further adjustments for consistent font sizing */
+        /* Further adjustments for consistent font sizing */
     body {
         font-size: 14px; /* Base font size */
     }
-
-    h1, h2, h3, h4, h5, h6 {
+        h1, h2, h3, h4, h5, h6 {
         font-size: 1.2em; /* 1.2 times the base font size */
     }
-
-    p, label, input, button, table, th, td {
+        p, label, input, button, table, th, td {
         font-size: 1em; /* Same as base font size */
     }
-
+    
+    
+    
     .header-div .vector {
         max-width: 15%;
     }
-
+    
+    
     .header-div .NESTwork {
         font-size: 36px;
         text-align: center;
     }
-
+    
+    
     .header-div .navigation-bar {
         width: 100%;
         justify-content: center;
     }
-}
-
-/* Media Query for Tablets */
-@media only screen and (max-width: 1024px) {
-
-    .intern-heading {
-        font-size: 20px; /* Reduce the heading size */
+    
+    
+    /* Ensure left-side and right-side are aligned side by side */
+    .overview {
+        display: flex;
+        flex-direction: row; /* Align left-side and right-side next to each other */
+        justify-content: space-between; /* Add space between the two boxes */
+        width: 90%; /* Shrink the width a little bit for spacing on both sides */
+        margin: 0 auto; /* Center the overview section */
     }
-
-    .header-div {
-        flex-direction: column;
-        height: auto;
-        align-items: center;
+    
+    
+    /* Left side (Intern Pool) box */
+    .left-side {
+        width: 48%; /* Make each side take up about half the available space */
+        margin-right: 2%; /* Add a small margin to the right for spacing */
     }
-
-    .header-div .vector {
-        max-width: 15%;
+    
+    
+    /* Right side (Pairing Box) */
+    .right-side, .pairing-box {
+        width: 50%; /* Make the pairing box the same width as the left side */
     }
-
-    .header-div .NESTwork {
-        font-size: 36px;
-        text-align: center;
-    }
-
-    .header-div .navigation-bar {
+    
+    
+    /* Pairing box styling */
+    .pairing-box {
         width: 100%;
+    }
+    
+    
+    /* Adjust table and buttons */
+    table {
+        font-size: 14px;
+    }
+    
+    
+    .filter-buttons button {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+    
+    
+    .search-bar {
+        width: 100%;
+    }
+    
+    
+    .buttons {
         justify-content: center;
     }
-}
-
-/* Media Query for 982px and below */
-@media only screen and (max-width: 982px) {
+    
+    
+    .buttons button {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+    
+    
+    
+    
+    
+    /* Media Query for 982px and below */
+    @media only screen and (max-width: 982px) {
     /* Ensure the layout switches to vertical stacking */
     .overview {
         display: flex;
@@ -85,7 +118,8 @@
         align-items: center; /* Center the boxes */
         width: 100%; /* Full width */
     }
-
+    
+    
     /* Set both boxes to take up the same width */
     .left-side, .right-side{
         width: 95%; /* Adjust width to leave margin on the sides */
@@ -93,7 +127,8 @@
         padding: 15px; /* Add padding inside the boxes */
         box-sizing: border-box; /* Ensure padding is included in the total width */
     }
-
+    
+    
     /* Ensure full width for the pairing box */
     .pairing-box {
         width: 95%;
@@ -101,7 +136,8 @@
         padding: 15px; /* Add padding inside */
         box-sizing: border-box; /* Include padding and border in total width */
     }
-
+    
+    
     /* Adjust filter buttons so they wrap and don't overflow */
     .filter-buttons {
         display: flex;
@@ -109,37 +145,23 @@
         justify-content: flex-start;
         gap: 5px; /* Add a small gap between buttons */
     }
-
+    
+    
     .filter-buttons button {
         padding: 5px 8px; /* Smaller padding */
         font-size: 12px; /* Smaller font size */
     }
-
-    /* Adjust the header layout */
-    .header-div {
-        flex-direction: column;
-        height: auto;
-        align-items: center;
     }
-
-    .header-div .vector {
-        max-width: 15%; /* Shrink logo size */
+    
+    .footer-text {
+        font-size: 100%;
     }
-
-    .header-div .NESTwork {
-        font-size: 24px; /* Shrink NESTwork text size */
-        text-align: center;
-    }
-
-    .header-div .navigation-bar {
-        justify-content: center; /* Keep nav buttons centered */
-        width: 100%;
-    }
-}
-
-/* Media Query for 768px and below */
-@media only screen and (max-width: 768px) {
-
+    
+    
+    
+    /* Media Query for 768px and below */
+    @media only screen and  (max-width: 768px) {
+    
     /* Adjust the header to center the logo and the nav buttons */
     .header-div {
         display: flex;
@@ -151,8 +173,11 @@
         padding: 0; /* Remove any extra padding */
         position: relative;
         width: 100%; /* Full width for the header */
+    
+    
     }
-
+    
+    
     /* Ensure the logo and NESTwork text are perfectly centered */
     .logo {
         display: flex;
@@ -161,13 +186,17 @@
         margin: 0; /* No extra margin */
         width: 100%; /* Ensure full width for centering */
     }
-
+    
+    
+    
+    
     .NESTwork {
         font-size: 24px; /* Ensure the NESTwork text is proportional to the logo */
         margin-right: 30%; /* Small space between the logo image and text */
         text-align: center; /* Center the text */
     }
-
+    
+    
     /* Adjust the navigation bar and keep it close to the logo */
     .navigation-bar {
         display: flex;
@@ -178,7 +207,8 @@
         position: relative;
         bottom: 35%;
     }
-
+    
+    
     /* Nav buttons styling */
     .nav-button {
         padding: 10px 15px; /* Adjust padding for smaller buttons */
@@ -188,11 +218,13 @@
         border: none;
         cursor: pointer;
     }
-
+    
+    
     .nav-button:hover {
         color: #79c8a3; /* Add hover effect */
     }
-
+    
+    
     /* Adjust left-side and pairing-box to maintain margin consistency */
     .left-side, .pairing-box {
         width: 95%; /* Keep consistent width */
@@ -200,25 +232,25 @@
         padding: 15px;
         box-sizing: border-box; /* Ensure padding is included in total width */
     }
-}
-
-
-/* Footer styling */
-.footer {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    width: 100%;
-}
-
-.footer-text {
-    font-size: 100%;
-}
-
-.footer-logo {
-    height: 15%;
-    width: 15%;
-}
-
+    
+    
+    .footer {
+        flex-direction: row;
+        align-items: center;
+    }
+    
+    
+    .footer-text {
+        font-size: 100%;
+    }
+    
+    
+    .footer-logo {
+        height: 15%;
+        width: 15%;
+    }
+    
+    }
+    }
+    
+    

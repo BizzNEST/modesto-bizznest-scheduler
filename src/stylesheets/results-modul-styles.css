@@ -35,8 +35,7 @@
 }
 
 .add-button {
-    background:  linear-gradient(90deg,#79C8A3,rgb(0, 255, 162));
-    border: solid rgb(9, 255, 185) 2px;
+    background:  #79c8a3;
     border-radius: 10px;
     width: var(--button_size);
     height:  var(--button_size);
@@ -49,7 +48,7 @@
 
 .add-button:hover {
     background: linear-gradient(180deg,#79C8A3,rgb(0, 255, 162));
-    border:  solid rgb(9, 255, 185) 2px;
+    border:  solid rgb(9, 255, 185) 1px;
     border-radius:  10px;
     width: var(--button_size);
     height: var(--button_size);
