@@ -247,9 +247,13 @@ const generateButton = document.getElementById('generate-pairing');
 let internPairs = [];
 let isPairedByLocation = false;
 let isPairedByDepartment = false;
+let isPairedByDifferentLocation = false;
+let isPairedByDifferentDepartment = false;
 
 const locationButton = document.querySelector("#toggle-pairing-filter button:nth-child(1)");
 const departmentButton = document.querySelector("#toggle-pairing-filter button:nth-child(2)");
+const differentLocationButton = document.querySelector("#toggle-pairing-filter button:nth-child(3)");
+const differentDepartmentButton = document.querySelector("#toggle-pairing-filter button:nth-child(4)");
 
 // Toggle logic for the buttons
 locationButton.addEventListener("click", function () {
@@ -277,27 +281,130 @@ departmentButton.addEventListener("click", function () {
     }
 });
 
+differentLocationButton.addEventListener("click", function () {
+    isPairedByDifferentLocation = !isPairedByDifferentLocation;
+    console.log("Paired by different Location:", isPairedByDifferentLocation);
+
+    if (isPairedByDifferentLocation) {
+        differentLocationButton.classList.add("selected");
+    } else {
+        differentLocationButton.classList.remove("selected");
+    }
+});
+
+differentDepartmentButton.addEventListener("click", function () {
+    isPairedByDifferentDepartment = !isPairedByDifferentDepartment;
+    console.log("Paired by different Department:", isPairedByDifferentDepartment);
+
+    if (isPairedByDifferentDepartment) {
+        differentDepartmentButton.classList.add("selected");
+    } else {
+        differentDepartmentButton.classList.remove("selected");
+    }
+});
+
+function pairInternsByCondition(internGroups, conditionFns, unpairedInterns) {
+    let usedInterns = new Set();
+
+    for (let i = 0; i < internGroups.length; i++) {
+        // Skip if the current intern is already paired
+        if (usedInterns.has(i)) continue;
+
+        let paired = false;
+
+        for (let j = i + 1; j < internGroups.length; j++) {
+            // Skip if the second intern is already paired
+            if (usedInterns.has(j)) continue;
+
+            // Apply all condition functions in conditionFns array
+            const allConditionsMet = conditionFns.every(fn => fn(internGroups[i], internGroups[j]));
+
+            if (allConditionsMet) {
+                // Pair them if all conditions are satisfied
+                internPairs.push([internGroups[i], internGroups[j]]);
+                usedInterns.add(i);
+                usedInterns.add(j);
+                paired = true;
+                break;
+            }
+        }
+
+        // If no valid pair found, add to unpaired interns
+        if (!paired) {
+            unpairedInterns.push(internGroups[i]);
+        }
+    }
+}
+
+function createConditionFn(key, condition) {
+    return (intern1, intern2) => {
+        if (condition === 'same') {
+            return intern1[key] === intern2[key]; // For 'same' condition
+        } else if (condition === 'different') {
+            return intern1[key] !== intern2[key]; // For 'different' condition
+        }
+    };
+}
+
+// Function to handle either 'same' or 'different' conditions dynamically
+function createConditionFns() {
+    let conditionFns = [];
+
+    // Add 'same location' condition if selected
+    if (isPairedByLocation) {
+        conditionFns.push(createConditionFn('location', 'same'));
+    }
+
+    // Add 'different location' condition if selected
+    if (isPairedByDifferentLocation) {
+        conditionFns.push(createConditionFn('location', 'different'));
+    }
+
+    // Add 'same department' condition if selected
+    if (isPairedByDepartment) {
+        conditionFns.push(createConditionFn('department', 'same'));
+    }
+
+    // Add 'different department' condition if selected
+    if (isPairedByDifferentDepartment) {
+        conditionFns.push(createConditionFn('department', 'different'));
+    }
+
+    return conditionFns;
+}
+
+function checkFilterConflicts() {
+    if (isPairedByLocation && isPairedByDifferentLocation) {
+        alert("Cannot select both 'Same Location' and 'Different Location' filters.");
+        return true;
+    }
+    if (isPairedByDepartment && isPairedByDifferentDepartment) {
+        alert("Cannot select both 'Same Department' and 'Different Department' filters.");
+        return true;
+    }
+    return false; // No conflicts found
+}
+
 function generatePairings() {
+    // Check for conflicts before proceeding
+    if (checkFilterConflicts()) {
+        return; // Stop if there are conflicts
+    }
+
     // Shuffle the interns
     let shuffledInterns = selectedInterns.sort(() => 0.5 - Math.random());
     internPairs = [];
     let unpairedInterns = [];
 
-    // Group interns by location or department if toggled on
-    if (isPairedByLocation && isPairedByDepartment) {
-        const internsByLocation = groupBy(shuffledInterns, "location");
-        Object.values(internsByLocation).forEach(locationGroup => {
-            const internsByDept = groupBy(locationGroup, "department");
-            pairWithinGroups(internsByDept, unpairedInterns); // Pair within department inside each location
-        });
-    } else if (isPairedByLocation) {
-        const internsByLocation = groupBy(shuffledInterns, "location");
-        pairWithinGroups(internsByLocation, unpairedInterns);
-    } else if (isPairedByDepartment) {
-        const internsByDepartment = groupBy(shuffledInterns, "department");
-        pairWithinGroups(internsByDepartment, unpairedInterns);
+    // Create the array of condition functions based on the active filters
+    const conditionFns = createConditionFns();
+
+    if (conditionFns.length > 0) {
+        // Pair interns based on the selected filters
+        pairInternsByCondition(shuffledInterns, conditionFns, unpairedInterns);
     } else {
-        createPairs(shuffledInterns, unpairedInterns); // Random pairing with no filter
+        // Random pairing with no filter
+        createPairs(shuffledInterns, unpairedInterns);
     }
 
         // Log the flattened data and internPairs
@@ -308,18 +415,9 @@ function generatePairings() {
     sessionStorage.setItem('internData',JSON.stringify(internData));
     sessionStorage.setItem('isPairedByLocation', JSON.stringify(isPairedByLocation));
     sessionStorage.setItem('isPairedByDepartment', JSON.stringify(isPairedByDepartment));
+    sessionStorage.setItem('isPairedByDifferentLocation', JSON.stringify(isPairedByDifferentLocation));
+    sessionStorage.setItem('isPairedByDifferentDepartment', JSON.stringify(isPairedByDifferentDepartment));
     window.location.href = 'results.html';
-};
-
-function groupBy(interns, key) {
-    return interns.reduce((grouped, intern) => {
-        const groupKey = intern[key];
-        if(!grouped[groupKey]) {
-            grouped[groupKey] = [];
-        } 
-        grouped[groupKey].push(intern);
-        return grouped;
-    }, {});
 };
 
                     // Get modal element
