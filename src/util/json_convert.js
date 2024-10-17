@@ -1,4 +1,4 @@
-export const json_array = await generate_array('./src/documents/interns.json');
+export const json_array = await generate_array('./src/documents/interns.json'); 
 
 export async function generate_array(url) {
     const response = await fetch(url);

@@ -1,22 +1,9 @@
-
-
  export function calculatePairAccuracy(internPairs) {
     let isPairedByLocation = JSON.parse(sessionStorage.getItem('isPairedByLocation'));
     let isPairedByDepartment = JSON.parse(sessionStorage.getItem('isPairedByDepartment'));
     let isPairedByDifferentLocation = JSON.parse(sessionStorage.getItem('isPairedByDifferentLocation'));
     let isPairedByDifferentDepartment = JSON.parse(sessionStorage.getItem('isPairedByDifferentDepartment'));
     let validPairs = 0;
-
-    // Check for conflicting filters
-    if ((isPairedByLocation && isPairedByDifferentLocation) || (isPairedByDepartment && isPairedByDifferentDepartment)) {
-        console.error('Conflicting filters applied: Same and Different Location/Department cannot be selected together.');
-        return;
-    }
-
-    if (!isPairedByLocation && !isPairedByDepartment && !isPairedByDifferentLocation && !isPairedByDifferentDepartment) {
-        console.log('No pairing filters added');
-        return;
-    }
 
     internPairs.forEach(pair => {
         const [intern1, intern2] = pair;
