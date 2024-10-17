@@ -1,4 +1,3 @@
-/*************************************************************/
 @keyframes hover_anim_add {
     0%  {
         border-radius:100px;
@@ -35,8 +34,7 @@
 }
 
 .add-button {
-    background:  linear-gradient(90deg,#79C8A3,rgb(0, 255, 162));
-    border: solid rgb(9, 255, 185) 2px;
+    background:  #79c8a3;
     border-radius: 10px;
     width: var(--button_size);
     height:  var(--button_size);
@@ -49,7 +47,7 @@
 
 .add-button:hover {
     background: linear-gradient(180deg,#79C8A3,rgb(0, 255, 162));
-    border:  solid rgb(9, 255, 185) 2px;
+    border:  solid rgb(9, 255, 185) 1px;
     border-radius:  10px;
     width: var(--button_size);
     height: var(--button_size);
@@ -94,11 +92,12 @@
     position: fixed;
     top: 10%;
     width: 50%;
+    height: 70%;
     background-color: #151515;
     border-radius: 30px;
     padding: 3%;
     border: 3px #3B6250 solid;
-    z-index: 100;
+    z-index: 6;
 }
 
 .edit-window-header{
@@ -148,7 +147,8 @@
     border-radius: 50px;
     font-weight: 300;
     background: linear-gradient(90deg, #79C8A3, #3B6250);
-    margin-top: 50px;
+    z-index: 5;
+    margin-top: 15%;
   }
 
 .search-results-container{
@@ -174,6 +174,7 @@
     text-align: left;
     white-space: nowrap;
     display: flex;
+ 
 }
 
 .intern-card:nth-of-type(odd){
@@ -191,6 +192,7 @@
     margin-right: auto;
     margin-left: 4%;
     }
+    
 
 .intern-card hr{
     display: none;
@@ -252,6 +254,7 @@
     background-color: #333;
     scrollbar-width: none;
 }
+
 .recent-results::-webkit-scrollbar
 {
     visibility: hidden;
@@ -319,4 +322,10 @@
     }
 .mobile-back-button {
     display: none;
+}
+
+.edit-window-footer {
+height: 30%;
+width: 30%;
+position: relative;
 }

@@ -556,12 +556,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function get_all_remove_buttons(){
         return document.querySelectorAll(".remove-button");
         }
-    //On Button Click
-    //add a pop up seachbar
-    //Add All Previously Remove.
-    //Previously Remove
-
-
+ 
     //save button stuff save session storage and turn on edit button and csv
     resultSaveButton.addEventListener('click', save_button_functionality);
 

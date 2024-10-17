@@ -192,7 +192,6 @@ document.getElementById("search").addEventListener("input", function () {
   populateInternTable(searchResults);
 });
 
-/////////////////////////////////////////////////////////Vics's Code///////////////////////////////////////////////////////////////////////
 
 let isHoveringToggle = false; // To track if the pointer is hovering over the toggle filter
 
@@ -440,18 +439,6 @@ function generatePairings() {
                 modal.style.display = 'none'; // Hide the modal
         }
     });
-                    // Add the click event listener to the button
-            generateButton.addEventListener('click', generatePairings);
-function pairWithinGroups(groupedInterns, unpairedInterns) {
-    Object.values(groupedInterns).forEach(group => {
-        if (group.length >= 2) {
-            createPairs(group, unpairedInterns);
-        } else {
-            // If the group has fewer than 2 interns, they are unpaired
-            unpairedInterns.push(...group);
-        }
-    });
-};
 
 function createPairs(interns, unpairedInterns) {
     for (let i = 0; i < interns.length; i += 2) {
