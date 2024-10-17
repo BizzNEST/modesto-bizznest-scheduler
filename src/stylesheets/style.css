@@ -103,7 +103,7 @@ html, body {
       display: flex;
       width: 60%;
       justify-content: left;
-      z-index: 2;
+      z-index: 1;
     }
     
     .nav-button {
@@ -116,6 +116,7 @@ html, body {
       padding: 10px 20px;
       text-decoration: none;
       transition: color 0.3s ease; /* Add smooth transition for hover effect */
+      z-index: 1;
   }
   
   .nav-button.active {
@@ -131,9 +132,6 @@ html, body {
   }
   
   
-
-  
-
   .overview {
     background-color: transparent;
     display: flex;

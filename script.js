@@ -192,7 +192,6 @@ document.getElementById("search").addEventListener("input", function () {
   populateInternTable(searchResults);
 });
 
-/////////////////////////////////////////////////////////Vics's Code///////////////////////////////////////////////////////////////////////
 
 let isHoveringToggle = false; // To track if the pointer is hovering over the toggle filter
 
