@@ -48,8 +48,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //event listener for download csv button
   resultCSVButton.addEventListener("click", function () {
+    console.log(internPairs)
     generate_CSV.downloadCSV(
-      generate_CSV.generateCSV(internPairs),
+      generate_CSV.generateCSV(internPairs[0]),
       "intern_pairs.csv"
     );
   });
