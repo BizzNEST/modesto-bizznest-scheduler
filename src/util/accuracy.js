@@ -1,4 +1,5 @@
  export function calculatePairAccuracy(internPairs) {
+    console.log(internPairs)
     let isPairedByLocation = JSON.parse(sessionStorage.getItem('isPairedByLocation'));
     let isPairedByDepartment = JSON.parse(sessionStorage.getItem('isPairedByDepartment'));
     let isPairedByDifferentLocation = JSON.parse(sessionStorage.getItem('isPairedByDifferentLocation'));
